@@ -113,30 +113,30 @@ lang: fr
             
             <a href="{{ site.baseurl }}{{ post.url }}" class="block post-item" data-category="{{ post_category }}">
                 <article class="bg-white dark:bg-dark-navbar rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden hover:scale-105 h-full flex flex-col">
-                    <div class="h-64 {% if post_category == 'writeup' %}bg-gradient-to-br from-green-500 to-emerald-600{% elsif post_category == 'certification' %}bg-gradient-to-br from-amber-500 to-orange-600{% else %}bg-gradient-to-br from-portfolio-violet to-purple-600{% endif %} flex items-center justify-center relative overflow-hidden">
+                    <div class="h-52 {% if post_category == 'writeup' %}bg-gradient-to-br from-green-500 to-emerald-600{% elsif post_category == 'certification' %}bg-gradient-to-br from-amber-500 to-orange-600{% else %}bg-gradient-to-br from-portfolio-violet to-purple-600{% endif %} flex items-center justify-center relative overflow-hidden">
                         {% if post.title contains 'PermX' %}
                             <div class="text-center">
-                                <i class="fas fa-graduation-cap text-white text-6xl mb-4"></i>
-                                <div class="text-white text-2xl font-bold">Chamilo LMS</div>
-                                <div class="text-white/80 text-sm mt-2">CVE-2023-4220</div>
+                                <i class="fas fa-graduation-cap text-white text-5xl mb-3"></i>
+                                <div class="text-white text-xl font-bold">Chamilo LMS</div>
+                                <div class="text-white/80 text-xs mt-2">CVE-2023-4220</div>
                             </div>
                         {% elsif post.title contains 'BoardLight' %}
                             <div class="text-center">
-                                <i class="fas fa-chart-line text-white text-6xl mb-4"></i>
-                                <div class="text-white text-2xl font-bold">Dolibarr ERP</div>
-                                <div class="text-white/80 text-sm mt-2">CVE-2023-30253</div>
+                                <i class="fas fa-chart-line text-white text-5xl mb-3"></i>
+                                <div class="text-white text-xl font-bold">Dolibarr ERP</div>
+                                <div class="text-white/80 text-xs mt-2">CVE-2023-30253</div>
                             </div>
                         {% elsif post.title contains 'Writeup' %}
                             <div class="text-center">
-                                <i class="fas fa-newspaper text-white text-6xl mb-4"></i>
-                                <div class="text-white text-2xl font-bold">CMS Made Simple</div>
-                                <div class="text-white/80 text-sm mt-2">CVE-2019-9053</div>
+                                <i class="fas fa-newspaper text-white text-5xl mb-3"></i>
+                                <div class="text-white text-xl font-bold">CMS Made Simple</div>
+                                <div class="text-white/80 text-xs mt-2">CVE-2019-9053</div>
                             </div>
                         {% elsif post.title contains 'Support' %}
                             <div class="text-center bg-gradient-to-br from-orange-500 to-red-500 absolute inset-0 flex flex-col items-center justify-center">
-                                <i class="fab fa-windows text-white text-6xl mb-4"></i>
-                                <div class="text-white text-2xl font-bold">Active Directory</div>
-                                <div class="text-white/80 text-sm mt-2">RBCD Attack</div>
+                                <i class="fab fa-windows text-white text-5xl mb-3"></i>
+                                <div class="text-white text-xl font-bold">Active Directory</div>
+                                <div class="text-white/80 text-xs mt-2">RBCD Attack</div>
                             </div>
                         {% elsif post_category == 'writeup' %}
                             <i class="fas fa-flag-checkered text-white text-7xl"></i>
@@ -146,7 +146,7 @@ lang: fr
                             <i class="fas fa-shield-alt text-white text-7xl"></i>
                         {% endif %}
                     </div>
-                    <div class="p-8 flex-1 flex flex-col">
+                    <div class="p-6 flex-1 flex flex-col">
                         <div class="flex items-center gap-2 mb-3">
                             <span class="text-sm text-gray-500 dark:text-gray-400">{{ post.date | date: "%d %B %Y" }}</span>
                             {% if post.difficulty %}
