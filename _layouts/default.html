@@ -39,11 +39,13 @@
 </head>
 <body x-data="{ darkMode: localStorage.getItem('darkMode') === 'true' || (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches) }" 
       :class="{ 'dark': darkMode }" 
-      class="bg-slate-50 dark:bg-dark-main text-gray-900 dark:text-gray-100 font-sans antialiased transition-colors duration-300">
+      class="bg-slate-50 dark:bg-dark-main text-gray-900 dark:text-gray-100 font-sans antialiased transition-colors duration-300 flex flex-col min-h-screen">
 
     {% include navbar.html %}
 
-    {{ content }}
+    <main class="flex-grow">
+        {{ content }}
+    </main>
 
     {% include footer.html %}
 

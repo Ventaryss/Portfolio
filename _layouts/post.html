@@ -1,0 +1,260 @@
+---
+layout: default
+---
+
+<article class="py-20">
+    <div class="max-w-4xl mx-auto px-4">
+        <!-- Header -->
+        <header class="mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">{{ page.title }}</h1>
+            
+            <div class="flex flex-wrap items-center gap-4 text-gray-600 dark:text-gray-400 mb-6">
+                <span><i class="fas fa-calendar mr-2"></i>{{ page.date | date: "%d %B %Y" }}</span>
+                {% if page.difficulty %}
+                <span class="px-3 py-1 rounded-full text-sm font-semibold
+                    {% if page.difficulty == 'Easy' %}bg-green-500 text-white
+                    {% elsif page.difficulty == 'Medium' %}bg-amber-500 text-white
+                    {% elsif page.difficulty == 'Hard' %}bg-red-500 text-white
+                    {% elsif page.difficulty == 'Insane' %}bg-purple-500 text-white
+                    {% endif %}">
+                    {{ page.difficulty }}
+                </span>
+                {% endif %}
+                {% if page.platform %}
+                <span class="px-3 py-1 bg-blue-500 text-white rounded-full text-sm font-semibold">
+                    {{ page.platform }}
+                </span>
+                {% endif %}
+            </div>
+        </header>
+
+        <!-- Content -->
+        <div class="prose prose-lg dark:prose-invert max-w-none writeup-content">
+            {{ content }}
+        </div>
+
+        <style>
+            .writeup-content {
+                line-height: 1.8;
+            }
+            
+            .writeup-content h2 {
+                margin-top: 3rem;
+                margin-bottom: 1.5rem;
+                padding-bottom: 0.5rem;
+                border-bottom: 2px solid #8b5cf6;
+            }
+            
+            .writeup-content h3 {
+                margin-top: 2rem;
+                margin-bottom: 1rem;
+            }
+            
+            .writeup-content p {
+                margin-bottom: 1.5rem;
+            }
+            
+            .writeup-content ul, .writeup-content ol {
+                margin-bottom: 1.5rem;
+            }
+            
+            /* Terminal Linux style for code blocks */
+            .writeup-content pre {
+                background: #000000;
+                border: 1px solid #333333;
+                border-radius: 0.5rem;
+                padding: 0;
+                margin: 2rem 0;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+                overflow: hidden;
+            }
+            
+            .writeup-content pre::before {
+                content: "ventaryss@debian:~$";
+                display: block;
+                background: #1a1a1a;
+                padding: 0.65rem 1rem;
+                color: #00ff9f;
+                font-size: 0.9rem;
+                font-family: 'Ubuntu Mono', 'Courier New', monospace;
+                border-bottom: 1px solid #333333;
+                font-weight: normal;
+            }
+            
+            .writeup-content pre code {
+                display: block;
+                padding: 1.25rem 1rem;
+                color: #ffffff;
+                font-family: 'Ubuntu Mono', 'Courier New', monospace;
+                font-size: 0.9rem;
+                line-height: 1.6;
+                overflow-x: auto;
+            }
+            
+            /* PowerShell style - Avec header différencié comme Linux */
+            .writeup-content .language-powershell pre::before {
+                content: "PS C:\\Users\\Administrator>";
+                background: #1e3a5f;
+                color: #ffffff;
+                border-bottom: 1px solid #2a5080;
+                font-weight: bold;
+            }
+            
+            .writeup-content .language-powershell pre {
+                background: #012456;
+                border-color: #1e3a5f;
+                box-shadow: 0 4px 15px rgba(1, 36, 86, 0.5);
+            }
+            
+            .writeup-content .language-powershell pre code {
+                color: #ffffff;
+                text-shadow: none;
+                background: #012456;
+            }
+            
+            .writeup-content code:not(pre code) {
+                background: #f1f5f9;
+                color: #8b5cf6;
+                padding: 0.2rem 0.5rem;
+                border-radius: 0.25rem;
+                font-size: 0.9em;
+            }
+            
+            .dark .writeup-content code:not(pre code) {
+                background: #1e293b;
+                color: #a78bfa;
+            }
+            
+            /* Better spacing for sections */
+            .writeup-content > section {
+                margin-bottom: 3rem;
+            }
+            
+            /* Fix header presentation box spacing */
+            .writeup-content > div[class*="bg-gradient-to-r"]:first-of-type {
+                margin-top: 0 !important;
+                padding-top: 2rem !important;
+                padding-bottom: 3rem !important;
+            }
+            
+            .writeup-content > div[class*="bg-gradient-to-r"]:first-of-type h2 {
+                margin-top: 0.75rem !important;
+                border-bottom: none !important;
+            }
+            
+            /* Hide horizontal rules (---) that create white bars */
+            .writeup-content hr {
+                display: none !important;
+            }
+            
+            /* Alert boxes improvements - TOUS les blocs colorés */
+            .writeup-content [class*="bg-cyan"],
+            .writeup-content [class*="bg-amber"],
+            .writeup-content [class*="bg-green"],
+            .writeup-content [class*="bg-red"],
+            .writeup-content [class*="bg-blue"],
+            .writeup-content [class*="bg-purple"],
+            .writeup-content [class*="bg-orange"],
+            .writeup-content [class*="bg-white"],
+            .writeup-content [class*="bg-gray"],
+            .writeup-content [class*="bg-gradient"] {
+                margin: 2rem 0;
+                padding: 1.5rem;
+                border-radius: 0.75rem;
+                text-align: left;
+            }
+            
+            /* Réinitialiser margins et indentation dans les blocs colorés */
+            .writeup-content [class*="bg-cyan"] p,
+            .writeup-content [class*="bg-amber"] p,
+            .writeup-content [class*="bg-green"] p,
+            .writeup-content [class*="bg-red"] p,
+            .writeup-content [class*="bg-blue"] p,
+            .writeup-content [class*="bg-purple"] p,
+            .writeup-content [class*="bg-orange"] p,
+            .writeup-content [class*="bg-white"] p,
+            .writeup-content [class*="bg-gray"] p,
+            .writeup-content [class*="bg-gradient"] p {
+                margin: 0 !important;
+                text-indent: 0 !important;
+                padding-left: 0 !important;
+            }
+            
+            /* Réinitialiser aussi pour les divs internes */
+            .writeup-content [class*="bg-"] div {
+                text-align: left;
+            }
+            
+            /* Highlighted text colors - Global */
+            .text-highlight-red {
+                color: #ef4444;
+                font-weight: 600;
+            }
+            
+            .text-highlight-green {
+                color: #10b981;
+                font-weight: 600;
+            }
+            
+            .text-highlight-blue {
+                color: #3b82f6;
+                font-weight: 600;
+            }
+            
+            .text-highlight-purple {
+                color: #8b5cf6;
+                font-weight: 600;
+            }
+            
+            .text-highlight-orange {
+                color: #f97316;
+                font-weight: 600;
+            }
+            
+            /* Also apply in writeup content */
+            .writeup-content .text-highlight-red {
+                color: #ef4444;
+                font-weight: 600;
+            }
+            
+            .writeup-content .text-highlight-green {
+                color: #10b981;
+                font-weight: 600;
+            }
+            
+            .writeup-content .text-highlight-blue {
+                color: #3b82f6;
+                font-weight: 600;
+            }
+            
+            .writeup-content .text-highlight-purple {
+                color: #8b5cf6;
+                font-weight: 600;
+            }
+            
+            .writeup-content .text-highlight-orange {
+                color: #f97316;
+                font-weight: 600;
+            }
+            
+            /* Bold emphasis */
+            .writeup-content strong {
+                color: #8b5cf6;
+                font-weight: 700;
+            }
+            
+            .dark .writeup-content strong {
+                color: #a78bfa;
+            }
+        </style>
+
+        <!-- Footer -->
+        <footer class="mt-12 pt-8 border-t border-gray-300 dark:border-gray-700">
+            {% if page.author %}
+            <p class="text-gray-600 dark:text-gray-400">
+                <i class="fas fa-user mr-2"></i>Par <strong>{{ page.author }}</strong>
+            </p>
+            {% endif %}
+        </footer>
+    </div>
+</article>
