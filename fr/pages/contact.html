@@ -1,0 +1,151 @@
+---
+layout: default
+title: Contact
+permalink: /fr/contact/
+lang: fr
+---
+
+<!-- Hero Section -->
+<section class="py-20 bg-gradient-to-br from-portfolio-violet/10 to-cyan-500/10">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6">
+            <i class="fas fa-envelope text-portfolio-violet mr-4"></i>Contact
+        </h1>
+        <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+            N'hésitez pas à me contacter pour toute question ou opportunité
+        </p>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="py-20">
+    <div class="max-w-5xl mx-auto px-4">
+        <div class="grid md:grid-cols-2 gap-12">
+            <!-- Contact Info -->
+            <div>
+                <h2 class="text-3xl font-bold mb-8">
+                    <i class="fas fa-address-card text-portfolio-violet mr-3"></i>Informations de Contact
+                </h2>
+                
+                <div class="space-y-6">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-12 h-12 bg-portfolio-violet rounded-full flex items-center justify-center">
+                            <i class="fas fa-envelope text-white"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="font-bold text-lg mb-1">Email</h3>
+                            <a href="mailto:{{ site.email }}" class="text-portfolio-violet hover:text-portfolio-violet-light transition">
+                                {{ site.email }}
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-12 h-12 bg-indigo-500 rounded-full flex items-center justify-center">
+                            <i class="fab fa-discord text-white"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="font-bold text-lg mb-1">Discord</h3>
+                            <p class="text-indigo-500 font-semibold">ventaryss</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-map-marker-alt text-white"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="font-bold text-lg mb-1">Localisation</h3>
+                            <p class="text-gray-600 dark:text-gray-400">Bruz, Bretagne</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Links -->
+                <h3 class="text-2xl font-bold mb-6 mt-12">
+                    <i class="fas fa-share-alt text-portfolio-violet mr-2"></i>Réseaux sociaux
+                </h3>
+                <div class="grid grid-cols-2 gap-4">
+                    <a href="https://github.com/{{ site.github_username }}" target="_blank" 
+                       class="flex items-center justify-center gap-3 p-4 bg-gray-50 dark:bg-dark-navbar rounded-xl shadow-lg border-l-4 border-gray-800">
+                        <i class="fab fa-github text-3xl text-gray-800 dark:text-white"></i>
+                        <span class="font-semibold">GitHub</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/{{ site.linkedin_username }}/" target="_blank" 
+                       class="flex items-center justify-center gap-3 p-4 bg-white dark:bg-dark-navbar rounded-xl shadow-lg border-l-4 border-blue-600">
+                        <i class="fab fa-linkedin text-3xl text-blue-600"></i>
+                        <span class="font-semibold">LinkedIn</span>
+                    </a>
+                    <span class="flex items-center justify-center gap-3 p-4 bg-white dark:bg-dark-navbar rounded-xl shadow-lg border-l-4 border-indigo-500 col-span-2">
+                        <i class="fab fa-discord text-3xl text-indigo-500"></i>
+                        <span class="font-semibold">ventaryss</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div>
+                <h2 class="text-3xl font-bold mb-8">
+                    <i class="fas fa-paper-plane text-cyan-500 mr-3"></i>Envoyez-moi un message
+                </h2>
+                
+                <form class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-sm font-semibold mb-2">Nom</label>
+                        <input type="text" id="name" class="w-full px-4 py-3 rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-dark-navbar focus:border-portfolio-violet focus:outline-none transition">
+                    </div>
+                    
+                    <div>
+                        <label for="email" class="block text-sm font-semibold mb-2">Email</label>
+                        <input type="email" id="email" class="w-full px-4 py-3 rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-dark-navbar focus:border-portfolio-violet focus:outline-none transition">
+                    </div>
+                    
+                    <div>
+                        <label for="subject" class="block text-sm font-semibold mb-2">Sujet</label>
+                        <input type="text" id="subject" class="w-full px-4 py-3 rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-dark-navbar focus:border-portfolio-violet focus:outline-none transition">
+                    </div>
+                    
+                    <div>
+                        <label for="message" class="block text-sm font-semibold mb-2">Message</label>
+                        <textarea id="message" rows="6" class="w-full px-4 py-3 rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-dark-navbar focus:border-portfolio-violet focus:outline-none transition resize-none"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-portfolio-violet hover:bg-portfolio-violet-light text-white font-bold py-4 px-8 rounded-lg shadow-lg transition duration-300 transform hover:scale-105">
+                        <i class="fas fa-paper-plane mr-2"></i>Envoyer le message
+                    </button>
+                </form>
+                
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-4 text-center">
+                    <i class="fas fa-info-circle mr-1"></i>
+                    Ou contactez-moi directement par email : <a href="mailto:{{ site.email }}" class="text-portfolio-violet hover:underline">{{ site.email }}</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Availability -->
+<section class="py-20 bg-gray-100 dark:bg-dark-navbar">
+    <div class="max-w-5xl mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center mb-12">
+            <i class="fas fa-calendar-check text-green-500 mr-3"></i>Disponibilité
+        </h2>
+        
+        <div class="bg-white dark:bg-dark-main p-8 rounded-xl shadow-lg text-center">
+            <div class="inline-block px-6 py-3 bg-green-500 text-white rounded-full font-bold mb-6">
+                <i class="fas fa-check-circle mr-2"></i>En recherche d'opportunités post-diplôme
+            </div>
+            <p class="text-lg text-gray-700 dark:text-gray-300 mb-4">
+                Actuellement en dernière année d'ingénieur (diplôme juillet 2026), je recherche activement un poste dans les domaines suivants :
+            </p>
+            <div class="flex flex-wrap justify-center gap-3 mt-6">
+                <span class="px-4 py-2 bg-amber-500/10 text-amber-500 rounded-full font-semibold">Analyste SOC</span>
+                <span class="px-4 py-2 bg-portfolio-violet/10 text-portfolio-violet rounded-full font-semibold">Auditeur Cyber</span>
+                <span class="px-4 py-2 bg-green-500/10 text-green-500 rounded-full font-semibold">Consultant</span>
+                <span class="px-4 py-2 bg-cyan-500/10 text-cyan-500 rounded-full font-semibold">Freelance</span>
+                <span class="px-4 py-2 bg-blue-500/10 text-blue-500 rounded-full font-semibold">Collaboration</span>
+                <span class="px-4 py-2 bg-red-500/10 text-red-500 rounded-full font-semibold">CTF Teams</span>
+            </div>
+        </div>
+    </div>
+</section>

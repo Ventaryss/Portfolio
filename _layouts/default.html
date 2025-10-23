@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💼</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'portfolio-violet': '#a259ff',
+                        'portfolio-violet-light': '#bb6bff',
+                        'dark-main': '#1C2431',
+                        'dark-navbar': '#1E293B',
+                        'dark-sidebar': '#0F172A',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Réduction globale de 20% de la taille du contenu */
+        html {
+            font-size: 80%;
+        }
+    </style>
+    <script>
+        // Anti-flash dark mode
+        if (localStorage.getItem('darkMode') === 'true' || (!('darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</head>
+<body x-data="{ darkMode: localStorage.getItem('darkMode') === 'true' || (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches) }" 
+      :class="{ 'dark': darkMode }" 
+      class="bg-slate-50 dark:bg-dark-main text-gray-900 dark:text-gray-100 font-sans antialiased transition-colors duration-300">
+
+    {% include navbar.html %}
+
+    {{ content }}
+
+    {% include footer.html %}
+
+</body>
+</html>

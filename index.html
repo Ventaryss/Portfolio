@@ -1,0 +1,96 @@
+---
+layout: default
+title: Accueil
+lang: fr
+---
+
+<!-- Hero Section -->
+<section class="min-h-screen flex items-center justify-center px-4">
+    <div class="max-w-5xl mx-auto text-center">
+        <div class="mb-8">
+            <div class="w-72 h-72 mx-auto rounded-full bg-gradient-to-br from-portfolio-violet to-cyan-500 p-1 mb-6">
+                <img src="{{ site.baseurl }}/assets/images/avatar.png" alt="Aubin SABY Avatar" class="w-full h-full rounded-full object-cover">
+            </div>
+            <h1 class="text-5xl md:text-7xl font-bold mb-4">
+                <span class="bg-gradient-to-r from-portfolio-violet to-cyan-500 bg-clip-text text-transparent">
+                    Aubin SABY
+                </span>
+            </h1>
+            <p class="text-2xl md:text-3xl text-gray-600 dark:text-gray-400 mb-2">Étudiant Ingénieur Cyberdéfense</p>
+            <p class="text-xl text-gray-500 dark:text-gray-500">ESNA Bretagne | COMCYBER</p>
+        </div>
+        
+        <div class="flex flex-wrap justify-center gap-4 mb-12">
+            <a href="{{ site.baseurl }}/projects/" class="bg-portfolio-violet hover:bg-portfolio-violet-light text-white font-bold py-3 px-8 rounded-lg shadow-lg transition duration-300 transform hover:scale-105">
+                <i class="fas fa-rocket mr-2"></i>Voir mes projets
+            </a>
+            <a href="{{ site.baseurl }}/contact/" class="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition duration-300 transform hover:scale-105">
+                <i class="fas fa-envelope mr-2"></i>Me contacter
+            </a>
+            <a href="{{ site.baseurl }}/assets/CV.pdf" target="_blank" class="bg-gray-700 hover:bg-gray-800 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition duration-300 transform hover:scale-105">
+                <i class="fas fa-download mr-2"></i>Télécharger CV
+            </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+            <div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg">
+                <div class="text-4xl font-bold text-portfolio-violet mb-2">4+</div>
+                <div class="text-gray-600 dark:text-gray-400">Années d'alternance</div>
+            </div>
+            <div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg">
+                <div class="text-4xl font-bold text-cyan-500 mb-2">3</div>
+                <div class="text-gray-600 dark:text-gray-400">Projets majeurs</div>
+            </div>
+            <div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg">
+                <div class="text-4xl font-bold text-green-500 mb-2">Top 1%</div>
+                <div class="text-gray-600 dark:text-gray-400">TryHackMe</div>
+            </div>
+            <div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg">
+                <div class="text-4xl font-bold text-amber-500 mb-2">Top 4</div>
+                <div class="text-gray-600 dark:text-gray-400">Hacklantique 2024</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Skills -->
+<section class="py-20 bg-gray-100 dark:bg-dark-navbar">
+    <div class="max-w-7xl mx-auto px-4">
+        <h2 class="text-4xl font-bold text-center mb-12">
+            <i class="fas fa-code text-portfolio-violet mr-3"></i>Compétences Clés
+        </h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-white dark:bg-dark-main p-8 rounded-xl shadow-lg text-center hover:shadow-2xl transition">
+                <i class="fas fa-user-shield text-5xl text-portfolio-violet mb-4"></i>
+                <h3 class="text-2xl font-bold mb-3">Auditeur Technique</h3>
+                <p class="text-gray-600 dark:text-gray-400">Audit de sécurité, tests d'intrusion, analyse de vulnérabilités et conformité</p>
+            </div>
+            <div class="bg-white dark:bg-dark-main p-8 rounded-xl shadow-lg text-center hover:shadow-2xl transition">
+                <i class="fas fa-server text-5xl text-cyan-500 mb-4"></i>
+                <h3 class="text-2xl font-bold mb-3">Admin Système & Réseaux</h3>
+                <p class="text-gray-600 dark:text-gray-400">Infrastructure, durcissement de systèmes, Nginx, PostgreSQL et sécurisation</p>
+            </div>
+            <div class="bg-white dark:bg-dark-main p-8 rounded-xl shadow-lg text-center hover:shadow-2xl transition">
+                <i class="fas fa-laptop-code text-5xl text-green-500 mb-4"></i>
+                <h3 class="text-2xl font-bold mb-3">Développement Sécurisé</h3>
+                <p class="text-gray-600 dark:text-gray-400">Symfony, Python, Docker, API REST et architectures e-learning</p>
+            </div>
+            <div class="bg-white dark:bg-dark-main p-8 rounded-xl shadow-lg text-center hover:shadow-2xl transition">
+                <i class="fas fa-shield-virus text-5xl text-indigo-500 mb-4"></i>
+                <h3 class="text-2xl font-bold mb-3">Sécurité Défensive</h3>
+                <p class="text-gray-600 dark:text-gray-400">Analyse de logs, détection d'incidents, forensique et réponse aux menaces</p>
+            </div>
+            <div class="bg-white dark:bg-dark-main p-8 rounded-xl shadow-lg text-center hover:shadow-2xl transition">
+                <i class="fas fa-cogs text-5xl text-amber-500 mb-4"></i>
+                <h3 class="text-2xl font-bold mb-3">DevOps & Automatisation</h3>
+                <p class="text-gray-600 dark:text-gray-400">Docker, CI/CD, scripts d'automatisation et gestion d'infrastructures</p>
+            </div>
+            <div class="bg-white dark:bg-dark-main p-8 rounded-xl shadow-lg text-center hover:shadow-2xl transition">
+                <i class="fas fa-flag-checkered text-5xl text-red-500 mb-4"></i>
+                <h3 class="text-2xl font-bold mb-3">CTF & Compétitions</h3>
+                <p class="text-gray-600 dark:text-gray-400">Top 1% TryHackMe, Top 4 Hacklantique, challenges forensique et web</p>
+            </div>
+        </div>
+    </div>
+</section>

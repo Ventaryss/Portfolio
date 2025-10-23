@@ -1,0 +1,41 @@
+fr:
+  nav:
+    home: "Accueil"
+    about: "À propos"
+    projects: "Projets"
+    certifications: "Certifications"
+    blog: "Blog"
+    contact: "Contact"
+  home:
+    title: "Étudiant Ingénieur Cyberdéfense"
+    subtitle: "ESNA Bretagne | COMCYBER"
+    cta_projects: "Voir mes projets"
+    cta_contact: "Me contacter"
+    cta_cv: "Télécharger CV"
+    skills_title: "Compétences Clés"
+    stats:
+      years: "Années d'alternance"
+      projects: "Projets majeurs"
+  footer:
+    rights: "Tous droits réservés"
+
+en:
+  nav:
+    home: "Home"
+    about: "About"
+    projects: "Projects"
+    certifications: "Certifications"
+    blog: "Blog"
+    contact: "Contact"
+  home:
+    title: "Cyberdefense Engineering Student"
+    subtitle: "ESNA Brittany | COMCYBER"
+    cta_projects: "View my projects"
+    cta_contact: "Contact me"
+    cta_cv: "Download CV"
+    skills_title: "Key Skills"
+    stats:
+      years: "Years of work experience"
+      projects: "Major projects"
+  footer:
+    rights: "All rights reserved"

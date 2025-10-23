@@ -1,0 +1,47 @@
+# Configuration Jekyll pour Portfolio Aubin SABY
+
+# Informations du site
+title: "Aubin SABY - Portfolio"
+description: "Portfolio d'Aubin SABY (Ventaryss) - Étudiant ingénieur en cybersécurité"
+author: "Aubin SABY"
+email: "aubinsaby@protonmail.com"
+baseurl: "/Portfolio" # pour GitHub Pages
+url: "https://ventaryss.github.io"
+
+# Permaliens
+permalink: /:title/
+
+# Exclusions
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .sass-cache
+  - .jekyll-cache
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Réseaux sociaux
+github_username: Ventaryss
+linkedin_username: aubin-saby-369922230
+
+# Build settings
+markdown: kramdown
+
+# Collections (pour les projets et articles)
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name/
+  posts:
+    output: true
+    permalink: /blog/:year/:month/:day/:title/
+
+# Multi-language support
+languages: ["fr", "en"]
+default_lang: "fr"
+exclude_from_localization: ["assets", "js", "css"]
