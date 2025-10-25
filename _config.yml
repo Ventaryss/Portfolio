@@ -5,7 +5,7 @@ title: "Aubin SABY - Portfolio"
 description: "Portfolio d'Aubin SABY (Ventaryss) - Étudiant ingénieur en cybersécurité"
 author: "Aubin SABY"
 email: "aubinsaby@protonmail.com"
-baseurl: "/Portfolio" # pour GitHub Pages
+baseurl: "" # Site à la racine (ventaryss.github.io)
 url: "https://ventaryss.github.io"
 
 # Permaliens
