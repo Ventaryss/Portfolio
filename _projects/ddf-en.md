@@ -14,7 +14,7 @@ permalink: /en/projects/ddf/
             </div>
             <h1 class="text-5xl md:text-6xl font-bold mb-4 text-red-500">DDF</h1>
             <p class="text-2xl text-gray-600 dark:text-gray-400 mb-4">
-                Drone de Fer - Anti-Drone System
+                Drone de Fer v2.0 - Real-Time AI Detection
             </p>
             <span class="inline-block px-6 py-2 bg-amber-500 text-white rounded-full text-lg font-semibold">
                 <i class="fas fa-lock mr-2"></i>Confidential ESNA Project
@@ -31,10 +31,10 @@ permalink: /en/projects/ddf/
                 <i class="fas fa-info-circle mr-3"></i>About the Project
             </h2>
             <p class="text-lg text-gray-700 dark:text-gray-300 mb-6">
-                <strong>DDF (Drone de Fer - Iron Drone)</strong> is a 2-year graduation project at <strong>ESNA Bretagne</strong>, consisting of developing a drone detection and countermeasure system inspired by Israel's famous <strong>Iron Dome</strong>.
+                <strong>DDF (Drone de Fer - Iron Drone)</strong> is a 2-year graduation project at <strong>ESNA Bretagne</strong>, developing an AI-powered anti-drone detection system inspired by Israel's famous <strong>Iron Dome</strong>.
             </p>
             <p class="text-lg text-gray-700 dark:text-gray-300 mb-6">
-                The project aims to create an autonomous system capable of <strong>detecting</strong>, <strong>tracking</strong> and <strong>neutralizing</strong> potentially hostile drones in real-time, with a focus on automation and precision.
+                The system uses <strong>YOLOv11</strong> for real-time detection, <strong>Django 5.1</strong> as backend, and a <strong>complete REST API</strong> for integration with surveillance systems. Optimized architecture with lazy loading and threading for maximum performance (+40% FPS).
             </p>
             <div class="bg-amber-100 dark:bg-amber-900/20 border-l-4 border-amber-500 p-4 rounded">
                 <p class="text-amber-800 dark:text-amber-200">
@@ -100,57 +100,57 @@ permalink: /en/projects/ddf/
         <div class="grid md:grid-cols-2 gap-8">
             <div class="bg-white dark:bg-dark-navbar rounded-xl shadow-lg p-8">
                 <h3 class="text-2xl font-bold mb-4 text-red-500">
-                    <i class="fas fa-camera mr-2"></i>Computer Vision
+                    <i class="fas fa-camera mr-2"></i>Artificial Intelligence
                 </h3>
                 <p class="text-gray-700 dark:text-gray-300 mb-4">
-                    Using computer vision algorithms to detect and identify drones in airspace.
+                    AI detection with YOLOv11 (Ultralytics 8.3.34) and PyTorch 2.5.1 for maximum accuracy.
                 </p>
                 <ul class="space-y-2 text-gray-600 dark:text-gray-400">
-                    <li><i class="fas fa-check text-green-500 mr-2"></i>Real-time object detection</li>
-                    <li><i class="fas fa-check text-green-500 mr-2"></i>Multi-object tracking</li>
-                    <li><i class="fas fa-check text-green-500 mr-2"></i>Trajectory analysis</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>YOLOv11 - Ultra-fast detection</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>Lazy loading (-87% load time)</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>Optimized threading (+40% FPS)</li>
                 </ul>
             </div>
 
             <div class="bg-white dark:bg-dark-navbar rounded-xl shadow-lg p-8">
                 <h3 class="text-2xl font-bold mb-4 text-orange-500">
-                    <i class="fab fa-python mr-2"></i>Python & AI
+                    <i class="fab fa-python mr-2"></i>Django Backend
                 </h3>
                 <p class="text-gray-700 dark:text-gray-300 mb-4">
-                    Python development with machine learning frameworks for decision automation.
+                    Complete backend with Django 5.1.3 and Django REST Framework 3.15.2 for professional management.
                 </p>
                 <ul class="space-y-2 text-gray-600 dark:text-gray-400">
-                    <li><i class="fas fa-check text-green-500 mr-2"></i>Image processing</li>
-                    <li><i class="fas fa-check text-green-500 mr-2"></i>Movement prediction</li>
-                    <li><i class="fas fa-check text-green-500 mr-2"></i>Response automation</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>Complete REST API (15+ endpoints)</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>Token authentication</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>Detection model (history)</li>
                 </ul>
             </div>
 
             <div class="bg-white dark:bg-dark-navbar rounded-xl shadow-lg p-8">
                 <h3 class="text-2xl font-bold mb-4 text-amber-500">
-                    <i class="fas fa-server mr-2"></i>IoT & Sensors
+                    <i class="fas fa-server mr-2"></i>Web Architecture
                 </h3>
                 <p class="text-gray-700 dark:text-gray-300 mb-4">
-                    Integration of sensors and IoT devices for comprehensive environmental monitoring.
+                    Complete web interface with live video streaming and real-time surveillance dashboard.
                 </p>
                 <ul class="space-y-2 text-gray-600 dark:text-gray-400">
-                    <li><i class="fas fa-check text-green-500 mr-2"></i>Multiple sensors</li>
-                    <li><i class="fas fa-check text-green-500 mr-2"></i>Real-time communication</li>
-                    <li><i class="fas fa-check text-green-500 mr-2"></i>Data fusion</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>Real-time camera live feed</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>Django admin panel</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>Sensors dashboard</li>
                 </ul>
             </div>
 
             <div class="bg-white dark:bg-dark-navbar rounded-xl shadow-lg p-8">
                 <h3 class="text-2xl font-bold mb-4 text-yellow-500">
-                    <i class="fas fa-cogs mr-2"></i>Embedded Systems
+                    <i class="fas fa-cogs mr-2"></i>DevOps & Deployment
                 </h3>
                 <p class="text-gray-700 dark:text-gray-300 mb-4">
-                    Design of embedded systems optimized for real-time processing.
+                    Automated multi-OS installation script with intelligent detection and configuration.
                 </p>
                 <ul class="space-y-2 text-gray-600 dark:text-gray-400">
-                    <li><i class="fas fa-check text-green-500 mr-2"></i>Real-time architecture</li>
-                    <li><i class="fas fa-check text-green-500 mr-2"></i>Performance optimization</li>
-                    <li><i class="fas fa-check text-green-500 mr-2"></i>Energy management</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>Multi-OS support (Debian, Ubuntu, RHEL)</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>Secure .env configuration</li>
+                    <li><i class="fas fa-check text-green-500 mr-2"></i>Structured logs with rotation</li>
                 </ul>
             </div>
         </div>
