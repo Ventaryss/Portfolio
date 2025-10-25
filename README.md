@@ -1,6 +1,6 @@
 # 💼 Portfolio - Aubin SABY
 
-**🌐 Site en ligne :** [https://ventaryss.github.io/Portfolio/](https://ventaryss.github.io/Portfolio/)
+**🌐 Site en ligne :** [https://ventaryss.github.io/Portfolio/](https://ventaryss.github.io)
 
 ---
 
