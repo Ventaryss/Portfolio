@@ -8,6 +8,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Toastify for notifications -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -37,7 +40,10 @@
         }
     </script>
 </head>
-<body x-data="{ darkMode: localStorage.getItem('darkMode') === 'true' || (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches) }" 
+<body x-data="{ 
+        darkMode: localStorage.getItem('darkMode') === 'true' || (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches),
+        mobileMenu: false 
+      }" 
       :class="{ 'dark': darkMode }" 
       class="bg-slate-50 dark:bg-dark-main text-gray-900 dark:text-gray-100 font-sans antialiased transition-colors duration-300 flex flex-col min-h-screen">
 
@@ -48,6 +54,10 @@
     </main>
 
     {% include footer.html %}
+
+    <!-- GoatCounter Analytics - Respect de la vie privée, sans cookies -->
+    <script data-goatcounter="https://ventaryss.goatcounter.com/count"
+            async src="//gc.zgo.at/count.js"></script>
 
 </body>
 </html>
