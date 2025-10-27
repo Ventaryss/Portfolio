@@ -6,32 +6,32 @@ lang: en
 ---
 
 <!-- Hero Section -->
-<section class="py-20 bg-gradient-to-br from-portfolio-violet/10 to-cyan-500/10">
+<section class="py-12 bg-gradient-to-br from-portfolio-violet/10 to-cyan-500/10">
     <div class="max-w-7xl mx-auto px-4 text-center">
-        <h1 class="text-5xl md:text-6xl font-bold mb-6">
-            <i class="fas fa-blog text-portfolio-violet mr-4"></i>Blog
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">
+            <i class="fas fa-blog text-portfolio-violet mr-3"></i>Blog
         </h1>
-        <p class="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            Articles, tutorials and insights on cybersecurity, development and CTFs
+        <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+            Articles, tutorials and insights on cybersecurity, development and CTF
         </p>
     </div>
 </section>
 
 <!-- Category Filters -->
-<section class="py-16 bg-gray-100 dark:bg-dark-navbar">
+<section class="py-8 bg-gray-100 dark:bg-dark-navbar">
     <div class="max-w-7xl mx-auto px-4">
-        <div class="flex flex-wrap justify-center gap-4 mb-6">
-            <button onclick="filterPosts('all')" class="filter-btn active px-6 py-3 rounded-lg font-semibold transition-all duration-300 bg-portfolio-violet text-white shadow-lg">
+        <div class="flex flex-wrap justify-center items-center gap-3 mb-4">
+            <button onclick="filterPosts('all')" class="filter-btn active px-5 py-2 rounded-lg font-semibold transition-all duration-300 bg-portfolio-violet text-white shadow-lg">
                 <i class="fas fa-th-large mr-2"></i>All Articles
             </button>
-            <button onclick="filterPosts('writeup')" class="filter-btn px-6 py-3 rounded-lg font-semibold transition-all duration-300 bg-white dark:bg-dark-main text-gray-700 dark:text-gray-300 hover:bg-green-500 hover:text-white shadow-lg">
+            <button onclick="filterPosts('writeup')" class="filter-btn px-5 py-2 rounded-lg font-semibold transition-all duration-300 bg-white dark:bg-dark-main text-gray-700 dark:text-gray-300 hover:bg-green-500 hover:text-white shadow-lg">
                 <i class="fas fa-flag-checkered mr-2"></i>CTF WriteUps
             </button>
-            <button onclick="filterPosts('article')" class="filter-btn px-6 py-3 rounded-lg font-semibold transition-all duration-300 bg-white dark:bg-dark-main text-gray-700 dark:text-gray-300 hover:bg-purple-500 hover:text-white shadow-lg">
+            <button onclick="filterPosts('article')" class="filter-btn px-5 py-2 rounded-lg font-semibold transition-all duration-300 bg-white dark:bg-dark-main text-gray-700 dark:text-gray-300 hover:bg-purple-500 hover:text-white shadow-lg">
                 <i class="fas fa-shield-alt mr-2"></i>Cyber Articles
             </button>
-            <button onclick="filterPosts('certification')" class="filter-btn px-6 py-3 rounded-lg font-semibold transition-all duration-300 bg-white dark:bg-dark-main text-gray-700 dark:text-gray-300 hover:bg-amber-500 hover:text-white shadow-lg">
-                <i class="fas fa-certificate mr-2"></i>Certifications
+            <button onclick="filterPosts('certification')" class="filter-btn px-5 py-2 rounded-lg font-semibold transition-all duration-300 bg-white dark:bg-dark-main text-gray-700 dark:text-gray-300 hover:bg-amber-500 hover:text-white shadow-lg">
+                <i class="fas fa-award mr-2"></i>Certifications
             </button>
         </div>
         
@@ -91,7 +91,7 @@ lang: en
             <div class="bg-gradient-to-br from-amber-500/10 to-orange-500/10 p-6 rounded-xl border-l-4 border-amber-500">
                 <div class="flex items-center gap-4">
                     <div class="text-4xl text-amber-500">
-                        <i class="fas fa-certificate"></i>
+                        <i class="fas fa-award"></i>
                     </div>
                     <div>
                         {% assign cert_count = site.posts | where: "lang", "en" | where_exp: "post", "post.categories contains 'Certification'" | size %}
@@ -115,40 +115,46 @@ lang: en
                 <article class="bg-white dark:bg-dark-navbar rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden hover:scale-105 h-full flex flex-col">
                     <div class="h-52 {% if post_category == 'writeup' %}bg-gradient-to-br from-green-500 to-emerald-600{% elsif post_category == 'certification' %}bg-gradient-to-br from-amber-500 to-orange-600{% else %}bg-gradient-to-br from-portfolio-violet to-purple-600{% endif %} flex items-center justify-center relative overflow-hidden">
                         {% if post.title contains 'PermX' %}
-                            <div class="text-center">
+                            <div class="text-center bg-gradient-to-br from-green-500 to-cyan-500 absolute inset-0 flex flex-col items-center justify-center">
                                 <i class="fas fa-graduation-cap text-white text-5xl mb-3"></i>
                                 <div class="text-white text-xl font-bold">Chamilo LMS</div>
                                 <div class="text-white/80 text-xs mt-2">CVE-2023-4220</div>
                             </div>
                         {% elsif post.title contains 'BoardLight' %}
-                            <div class="text-center">
+                            <div class="text-center bg-gradient-to-br from-green-500 to-cyan-500 absolute inset-0 flex flex-col items-center justify-center">
                                 <i class="fas fa-chart-line text-white text-5xl mb-3"></i>
                                 <div class="text-white text-xl font-bold">Dolibarr ERP</div>
                                 <div class="text-white/80 text-xs mt-2">CVE-2023-30253</div>
                             </div>
                         {% elsif post.title contains 'Writeup' %}
-                            <div class="text-center">
+                            <div class="text-center bg-gradient-to-br from-green-500 to-cyan-500 absolute inset-0 flex flex-col items-center justify-center">
                                 <i class="fas fa-newspaper text-white text-5xl mb-3"></i>
                                 <div class="text-white text-xl font-bold">CMS Made Simple</div>
                                 <div class="text-white/80 text-xs mt-2">CVE-2019-9053</div>
                             </div>
                         {% elsif post.title contains 'Support' %}
-                            <div class="text-center bg-gradient-to-br from-orange-500 to-red-500 absolute inset-0 flex flex-col items-center justify-center">
+                            <div class="text-center bg-gradient-to-br from-green-500 to-cyan-500 absolute inset-0 flex flex-col items-center justify-center">
                                 <i class="fab fa-windows text-white text-5xl mb-3"></i>
                                 <div class="text-white text-xl font-bold">Active Directory</div>
                                 <div class="text-white/80 text-xs mt-2">RBCD Attack</div>
                             </div>
+                        {% elsif post.title contains 'MetaTwo' %}
+                            <div class="text-center bg-gradient-to-br from-green-500 to-cyan-500 absolute inset-0 flex flex-col items-center justify-center">
+                                <i class="fab fa-wordpress text-white text-5xl mb-3"></i>
+                                <div class="text-white text-xl font-bold">WordPress</div>
+                                <div class="text-white/80 text-xs mt-2">SQLi + XXE</div>
+                            </div>
                         {% elsif post_category == 'writeup' %}
                             <i class="fas fa-flag-checkered text-white text-7xl"></i>
                         {% elsif post_category == 'certification' %}
-                            <i class="fas fa-certificate text-white text-7xl"></i>
+                            <i class="fas fa-award text-white text-7xl"></i>
                         {% else %}
                             <i class="fas fa-shield-alt text-white text-7xl"></i>
                         {% endif %}
                     </div>
                     <div class="p-6 flex-1 flex flex-col">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="text-sm text-gray-500 dark:text-gray-400">{{ post.date | date: "%B %d, %Y" }}</span>
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-sm text-gray-500 dark:text-gray-400">{{ post.date | date: "%d %B %Y" }}</span>
                             {% if post.difficulty %}
                             <span class="px-2 py-1 text-xs rounded
                                 {% if post.difficulty == 'Easy' %}bg-green-500 text-white
@@ -166,7 +172,7 @@ lang: en
                             {% if post_category == 'writeup' %}
                                 <i class="fas fa-flag-checkered mr-1"></i>CTF WriteUp
                             {% elsif post_category == 'certification' %}
-                                <i class="fas fa-certificate mr-1"></i>Certification Experience
+                                <i class="fas fa-award mr-1"></i>Certification Experience
                             {% else %}
                                 <i class="fas fa-newspaper mr-1"></i>Cybersecurity Article
                             {% endif %}

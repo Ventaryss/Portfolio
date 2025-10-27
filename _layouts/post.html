@@ -3,35 +3,37 @@ layout: default
 ---
 
 <article class="py-20">
-    <div class="max-w-4xl mx-auto px-4">
-        <!-- Header -->
-        <header class="mb-12">
-            <h1 class="text-4xl md:text-5xl font-bold mb-4">{{ page.title }}</h1>
-            
-            <div class="flex flex-wrap items-center gap-4 text-gray-600 dark:text-gray-400 mb-6">
-                <span><i class="fas fa-calendar mr-2"></i>{{ page.date | date: "%d %B %Y" }}</span>
-                {% if page.difficulty %}
-                <span class="px-3 py-1 rounded-full text-sm font-semibold
-                    {% if page.difficulty == 'Easy' %}bg-green-500 text-white
-                    {% elsif page.difficulty == 'Medium' %}bg-amber-500 text-white
-                    {% elsif page.difficulty == 'Hard' %}bg-red-500 text-white
-                    {% elsif page.difficulty == 'Insane' %}bg-purple-500 text-white
-                    {% endif %}">
-                    {{ page.difficulty }}
-                </span>
-                {% endif %}
-                {% if page.platform %}
-                <span class="px-3 py-1 bg-blue-500 text-white rounded-full text-sm font-semibold">
-                    {{ page.platform }}
-                </span>
-                {% endif %}
-            </div>
-        </header>
+  <div class="max-w-4xl mx-auto px-4">
+      <!-- Header -->
+      <header class="mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">{{ page.title }}</h1>
 
-        <!-- Content -->
-        <div class="prose prose-lg dark:prose-invert max-w-none writeup-content">
-            {{ content }}
+        {% unless page.categories contains 'WriteUp' %}
+        <div class="flex flex-wrap items-center gap-4 text-gray-600 dark:text-gray-400 mb-6">
+          <span><i class="fas fa-calendar mr-2"></i>{% if page.lang == 'fr' %}{{ page.date | french_date }}{% else %}{{ page.date | date: "%d %B %Y" }}{% endif %}</span>
+          {% if page.difficulty %}
+          <span class="px-3 py-1 rounded-full text-sm font-semibold
+            {% if page.difficulty == 'Easy' %}bg-green-500 text-white
+            {% elsif page.difficulty == 'Medium' %}bg-amber-500 text-white
+            {% elsif page.difficulty == 'Hard' %}bg-red-500 text-white
+            {% elsif page.difficulty == 'Insane' %}bg-purple-500 text-white
+            {% endif %}">
+            {{ page.difficulty }}
+          </span>
+          {% endif %}
+          {% if page.platform %}
+          <span class="px-3 py-1 bg-blue-500 text-white rounded-full text-sm font-semibold">
+            {{ page.platform }}
+          </span>
+          {% endif %}
         </div>
+        {% endunless %}
+      </header>
+
+      <!-- Content -->
+      <div class="prose prose-lg dark:prose-invert max-w-none writeup-content">
+        {{ content }}
+      </div>
 
         <style>
             .writeup-content {
@@ -39,15 +41,21 @@ layout: default
             }
             
             .writeup-content h2 {
-                margin-top: 3rem;
-                margin-bottom: 1.5rem;
+                margin-top: 1.5rem;
+                margin-bottom: 1rem;
                 padding-bottom: 0.5rem;
                 border-bottom: 2px solid #8b5cf6;
             }
             
             .writeup-content h3 {
-                margin-top: 2rem;
+                margin-top: 1.5rem;
                 margin-bottom: 1rem;
+            }
+            
+            /* Forcer la réduction d'espace pour h3 après code blocks */
+            .writeup-content pre + p + h3,
+            .writeup-content pre + h3 {
+                margin-top: 1rem !important;
             }
             
             .writeup-content p {
@@ -147,42 +155,49 @@ layout: default
                 display: none !important;
             }
             
-            /* Alert boxes improvements - TOUS les blocs colorés */
-            .writeup-content [class*="bg-cyan"],
-            .writeup-content [class*="bg-amber"],
-            .writeup-content [class*="bg-green"],
-            .writeup-content [class*="bg-red"],
-            .writeup-content [class*="bg-blue"],
-            .writeup-content [class*="bg-purple"],
-            .writeup-content [class*="bg-orange"],
-            .writeup-content [class*="bg-white"],
-            .writeup-content [class*="bg-gray"],
-            .writeup-content [class*="bg-gradient"] {
+            /* Forcer les styles pour les boxes "Parcours d'attaque complet" et Synopsis */
+            .writeup-content div[class*="px-6"],
+            .writeup-content div[class*="py-5"] {
+                padding-left: 1.5rem !important;
+                padding-right: 1.5rem !important;
+                padding-top: 1.25rem !important;
+                padding-bottom: 1.25rem !important;
+                margin-top: 1rem !important;
+            }
+            
+            /* Réduire l'espace du titre dans ces boxes */
+            .writeup-content div[class*="px-6"] h3,
+            .writeup-content div[class*="py-5"] h3 {
+                margin-bottom: 1rem !important;
+                margin-top: 0 !important;
+            }
+            
+            /* Forcer marge réduite pour les boxes après h2 */
+            .writeup-content h2 + div {
+                margin-top: 1rem !important;
+            }
+            
+            /* Boxes avec grid md:grid-cols-2 - réduire l'espace en haut et en bas */
+            .writeup-content div[class*="grid-cols-2"] {
+                margin-top: 1rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+            
+            /* Les icônes dans les boxes doivent être alignées en haut - on ne force rien ici */
+            
+            /* Alert boxes improvements - Petits blocs colorés UNIQUEMENT (pas les grandes boxes) */
+            .writeup-content div[class*="border-l-4"]:not([class*="px-"]):not([class*="py-"]):not([class*="shadow-lg"]) {
                 margin: 2rem 0;
-                padding: 1.5rem;
-                border-radius: 0.75rem;
+                padding: 1rem;
+                border-radius: 0.5rem;
                 text-align: left;
             }
             
-            /* Réinitialiser margins et indentation dans les blocs colorés */
-            .writeup-content [class*="bg-cyan"] p,
-            .writeup-content [class*="bg-amber"] p,
-            .writeup-content [class*="bg-green"] p,
-            .writeup-content [class*="bg-red"] p,
-            .writeup-content [class*="bg-blue"] p,
-            .writeup-content [class*="bg-purple"] p,
-            .writeup-content [class*="bg-orange"] p,
-            .writeup-content [class*="bg-white"] p,
-            .writeup-content [class*="bg-gray"] p,
-            .writeup-content [class*="bg-gradient"] p {
+            /* Réinitialiser margins et indentation dans les petits blocs colorés uniquement */
+            .writeup-content div[class*="border-l-4"]:not([class*="shadow-lg"]) p {
                 margin: 0 !important;
                 text-indent: 0 !important;
                 padding-left: 0 !important;
-            }
-            
-            /* Réinitialiser aussi pour les divs internes */
-            .writeup-content [class*="bg-"] div {
-                text-align: left;
             }
             
             /* Highlighted text colors - Global */

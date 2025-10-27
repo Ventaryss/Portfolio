@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "PermX - HackTheBox WriteUp"
-date: 2024-10-24
+date: 2024-09-18
 categories: [CTF, HackTheBox, WriteUp]
 tags: [WebApp, ChamiloLMS, CVE-2023-4220, RCE, FileUpload, PrivEsc, SudoMisconfig, ACL, Linux]
 difficulty: Easy
@@ -12,56 +12,69 @@ permalink: /fr/blog/2024/10/24/permx-htb-writeup/
 excerpt: "Machine Linux hébergeant un Chamilo LMS vulnérable. Exploitation CVE-2023-4220 pour RCE via file upload, puis escalade de privilèges via mauvaise configuration sudo ACL."
 ---
 
-<div class="bg-gradient-to-r from-green-500/10 to-cyan-500/10 p-8 rounded-xl mb-12 border-l-4 border-green-500 shadow-lg">
-    <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4">
-        <div class="flex-1">
-            <h2 class="text-4xl md:text-5xl font-bold text-green-500 mb-3">
-                <i class="fas fa-cube mr-3"></i>PermX
-            </h2>
-            <p class="text-gray-700 dark:text-gray-300 text-lg md:text-xl">
-                Exploitation Chamilo LMS + Sudo ACL Privilege Escalation
-            </p>
-        </div>
-        <div class="flex gap-3">
-            <span class="px-5 py-2 bg-green-500 text-white rounded-lg text-sm font-semibold shadow-md">
-                <i class="fas fa-circle text-xs mr-1"></i>Easy
-            </span>
-            <span class="px-5 py-2 bg-blue-500 text-white rounded-lg text-sm font-semibold shadow-md">
-                <i class="fab fa-linux mr-1"></i>Linux
-            </span>
-        </div>
+<div class="bg-gradient-to-r from-green-500/10 to-cyan-500/10 p-10 rounded-xl mb-12 border-l-4 border-green-500 shadow-lg">
+  <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-6">
+    <div class="flex-1">
+      <h2 class="text-4xl md:text-5xl font-bold text-green-500 mb-3">
+        <i class="fas fa-cube mr-3"></i>PermX
+      </h2>
+      <p class="text-gray-700 dark:text-gray-300 text-lg md:text-xl">
+        Chamilo LMS Exploitation + Sudo ACL Privilege Escalation
+      </p>
     </div>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm bg-white/60 dark:bg-gray-800/60 p-5 rounded-lg backdrop-blur-sm">
-        <div class="flex items-center gap-2">
-            <i class="fas fa-calendar text-green-500"></i>
-            <div>
-                <div class="text-xs text-gray-500 dark:text-gray-400">Date</div>
-                <div class="font-semibold text-gray-800 dark:text-gray-200">24/10/2024</div>
-            </div>
-        </div>
-        <div class="flex items-center gap-2">
-            <i class="fas fa-network-wired text-blue-500"></i>
-            <div>
-                <div class="text-xs text-gray-500 dark:text-gray-400">IP Target</div>
-                <div class="font-semibold text-gray-800 dark:text-gray-200">10.10.11.23</div>
-            </div>
-        </div>
-        <div class="flex items-center gap-2">
-            <i class="fas fa-shield-alt text-purple-500"></i>
-            <div>
-                <div class="text-xs text-gray-500 dark:text-gray-400">OS</div>
-                <div class="font-semibold text-gray-800 dark:text-gray-200">Ubuntu 22.04</div>
-            </div>
-        </div>
-        <div class="flex items-center gap-2">
-            <i class="fas fa-star text-amber-500"></i>
-            <div>
-                <div class="text-xs text-gray-500 dark:text-gray-400">Points</div>
-                <div class="font-semibold text-gray-800 dark:text-gray-200">20</div>
-            </div>
-        </div>
+    <div class="flex gap-3">
+      <span class="px-5 py-2 bg-green-500 text-white rounded-lg text-sm font-semibold shadow-md">
+        <i class="fas fa-circle text-xs mr-1"></i>Easy
+      </span>
+      <span class="px-5 py-2 bg-blue-500 text-white rounded-lg text-sm font-semibold shadow-md">
+        <i class="fab fa-linux mr-1"></i>Linux
+      </span>
     </div>
+  </div>
+
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-6">
+    <div class="flex items-center gap-3">
+      <div class="text-green-500 text-xl">
+        <i class="fas fa-calendar"></i>
+      </div>
+      <div>
+        <div class="text-xs uppercase tracking-wide text-gray-600 dark:text-gray-400">Date</div>
+        <div class="font-semibold text-gray-800 dark:text-gray-100 text-lg">2024-09-18</div>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <div class="text-blue-500 text-xl">
+        <i class="fas fa-network-wired"></i>
+      </div>
+      <div>
+        <div class="text-xs uppercase tracking-wide text-gray-600 dark:text-gray-400">IP</div>
+        <div class="font-semibold text-gray-800 dark:text-gray-100 text-lg">10.10.11.23</div>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <div class="text-purple-500 text-xl">
+        <i class="fas fa-shield-alt"></i>
+      </div>
+      <div>
+        <div class="text-xs uppercase tracking-wide text-gray-600 dark:text-gray-400">OS</div>
+        <div class="font-semibold text-gray-800 dark:text-gray-100 text-lg">Ubuntu 22.04</div>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <div class="text-amber-500 text-xl">
+        <i class="fas fa-star"></i>
+      </div>
+      <div>
+        <div class="text-xs uppercase tracking-wide text-gray-600 dark:text-gray-400">Points</div>
+        <div class="font-semibold text-gray-800 dark:text-gray-100 text-lg">20</div>
+      </div>
+    </div>
+  </div>
 </div>
+
 
 ## 🎯 Synopsis
 
@@ -69,7 +82,7 @@ excerpt: "Machine Linux hébergeant un Chamilo LMS vulnérable. Exploitation CVE
 
 L'exploitation de cette vulnérabilité permet d'obtenir un <span class="text-highlight-blue">**accès initial**</span> en tant qu'utilisateur web `www-data` via l'exécution de code à distance. L'énumération du système révèle des <span class="text-highlight-red">**credentials en clair**</span> dans le fichier de configuration Chamilo, permettant une connexion SSH avec l'utilisateur `mtz`. Enfin, l'escalade de privilèges se fait via l'exploitation d'une <span class="text-highlight-purple">**mauvaise configuration sudo**</span> sur un script `acl.sh` utilisant des liens symboliques, conduisant à un <span class="text-highlight-green">**shell root**</span>.
 
-<div class="grid md:grid-cols-2 gap-6 my-10">
+<div class="grid md:grid-cols-2 gap-6 my-4">
     <div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg border-l-4 border-portfolio-violet">
         <h3 class="text-2xl font-bold text-portfolio-violet mb-4">
             <i class="fas fa-brain mr-2"></i>Compétences requises
@@ -114,7 +127,7 @@ ports=$(nmap -Pn -p- --min-rate=1000 -T4 10.10.11.23 | grep '^[0-9]' | cut -d'/'
 nmap -p$ports -Pn -sC -sV 10.10.11.23
 ```
 
-<div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg my-4">
+<div class="bg-white dark:bg-dark-navbar p-5 rounded-xl shadow-lg my-4">
     <h4 class="text-xl font-bold mb-4 text-portfolio-violet flex items-center">
         <i class="fas fa-search mr-2"></i>Résultats du scan
     </h4>
@@ -199,8 +212,8 @@ echo "10.10.11.23 www.permx.htb lms.permx.htb" | sudo tee -a /etc/hosts
 
 En accédant à `http://lms.permx.htb/`, on découvre une installation de **Chamilo LMS**, un système de gestion de l'apprentissage open-source.
 
-<div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg my-4">
-    <div class="flex items-center gap-4 mb-4">
+<div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg my-4 border-l-4 border-blue-500">
+    <div class="flex items-start gap-4 mb-4">
         <div class="text-4xl text-blue-500">
             <i class="fas fa-graduation-cap"></i>
         </div>
@@ -283,7 +296,7 @@ uid=33(www-data) gid=33(www-data) groups=33(www-data)
 <div class="bg-green-100 dark:bg-green-900/20 border-l-4 border-green-500 p-4 my-4 rounded-r-lg">
     <p class="text-green-800 dark:text-green-200 font-bold text-lg">
         <i class="fas fa-terminal mr-2 text-green-500"></i>
-        Shell confirmé en tant que www-data\!
+        Shell confirmé en tant que www-data!
     </p>
 </div>
 
@@ -317,7 +330,7 @@ curl 'http://lms.permx.htb/main/inc/lib/javascript/bigupload/files/rev.php'
 <div class="bg-green-100 dark:bg-green-900/20 border-l-4 border-green-500 p-4 my-4 rounded-r-lg">
     <p class="text-green-800 dark:text-green-200 font-bold text-lg">
         <i class="fas fa-terminal mr-2 text-green-500"></i>
-        Connexion établie → shell www-data obtenu\!
+        Connexion établie → shell www-data obtenu!
     </p>
 </div>
 
@@ -348,11 +361,11 @@ Les applications web stockent souvent des credentials dans leurs fichiers de con
 cat /var/www/chamilo/app/config/configuration.php
 ```
 
-<div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg my-4 border-l-4 border-green-500">
-    <h4 class="text-xl font-bold mb-4 text-green-600 dark:text-green-400 flex items-center">
+<div class="bg-white dark:bg-dark-navbar p-5 rounded-xl shadow-lg my-4 border-l-4 border-green-500">
+    <h4 class="text-xl font-bold mb-3 text-green-600 dark:text-green-400 flex items-center">
         <i class="fas fa-key mr-2"></i>Credentials découverts
     </h4>
-    <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded font-mono text-sm">
+    <div class="bg-gray-100 dark:bg-gray-800 p-3 rounded font-mono text-sm">
         <div class="text-gray-700 dark:text-gray-300">
             <span class="text-blue-600 dark:text-blue-400">$_configuration['db_user']</span> = <span class="text-green-600 dark:text-green-400">'chamilo'</span>;<br>
             <span class="text-blue-600 dark:text-blue-400">$_configuration['db_password']</span> = <span class="text-green-600 dark:text-green-400">'03F6lY3uXAP2bkW8'</span>;
@@ -373,7 +386,7 @@ cat /etc/passwd | grep '/bin/bash'
 <div class="bg-green-100 dark:bg-green-900/20 border-l-4 border-green-500 p-4 my-4 rounded-r-lg">
     <p class="text-green-800 dark:text-green-200">
         <i class="fas fa-check-circle mr-2 text-green-500"></i>
-        <strong>Credentials en clair trouvés \!</strong> Ces identifiants sont potentiellement réutilisés ailleurs sur le système.
+        <strong>Credentials en clair trouvés !</strong> Ces identifiants sont potentiellement réutilisés ailleurs sur le système.
     </p>
 </div>
 
@@ -400,7 +413,7 @@ ssh mtz@permx.htb
 <div class="bg-green-100 dark:bg-green-900/20 border-l-4 border-green-500 p-4 my-4 rounded-r-lg">
     <p class="text-green-800 dark:text-green-200 font-bold text-lg">
         <i class="fas fa-check-circle mr-2 text-green-500"></i>
-        Connexion SSH réussie\!
+        Connexion SSH réussie!
     </p>
 </div>
 
@@ -426,7 +439,7 @@ cat ~/user.txt
 <div class="bg-green-100 dark:bg-green-900/20 border-l-4 border-green-500 p-4 my-4 rounded-r-lg">
     <p class="text-green-800 dark:text-green-200">
         <i class="fas fa-flag mr-2 text-green-500"></i>
-        <strong>User flag obtenu \!</strong> Première étape complétée.
+        <strong>USER FLAG OBTENU !</strong> Première étape complétée.
     </p>
 </div>
 
@@ -440,11 +453,11 @@ Vérification des commandes que `mtz` peut exécuter avec sudo :
 sudo -l
 ```
 
-<div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg my-4">
-    <h4 class="text-xl font-bold mb-4 text-red-600 dark:text-red-400 flex items-center">
-        <i class="fas fa-exclamation-triangle mr-2"></i>Configuration sudo détectée
+<div class="bg-red-50 dark:bg-red-900/20 p-5 rounded-xl shadow-lg my-4 border-l-4 border-red-500">
+    <h4 class="text-xl font-bold mb-3 text-red-600 dark:text-red-400 flex items-center">
+        <i class="fas fa-exclamation-triangle mr-2"></i>Configuration Sudo détectée
     </h4>
-    <div class="bg-gray-100 dark:bg-gray-800 p-4 rounded font-mono text-sm">
+    <div class="bg-red-100 dark:bg-red-800/30 p-3 rounded font-mono text-sm">
         <div class="text-red-600 dark:text-red-400">
             (ALL : ALL) NOPASSWD: /opt/acl.sh
         </div>
@@ -467,7 +480,7 @@ cat /opt/acl.sh
 ```
 
 ```bash
-#\!/bin/bash
+#!/bin/bash
 if [ "$#" -ne 3 ]; then
     echo "Usage: $0 user perm file"
     exit 1
@@ -477,12 +490,12 @@ user="$1"
 perm="$2"
 target="$3"
 
-if [[ "$target" \!= /home/mtz/* || "$target" == *..* ]]; then
+if [[ "$target" != /home/mtz/* || "$target" == *..* ]]; then
     echo "Access denied."
     exit 1
 fi
 
-if [ \! -f "$target" ]; then
+if [ ! -f "$target" ]; then
     echo "Target must be a file."
     exit 1
 fi
@@ -492,7 +505,7 @@ sudo /usr/bin/setfacl -m u:"$user":"$perm" "$target"
 
 **Analyse du script :**
 
-<div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg my-4">
+<div class="bg-white dark:bg-dark-navbar p-5 rounded-xl shadow-lg my-4 border-l-4 border-purple-500">
     <h4 class="text-xl font-bold mb-4 text-purple-600 dark:text-purple-400 flex items-center">
         <i class="fas fa-code mr-2"></i>Analyse de vulnérabilité
     </h4>
@@ -500,7 +513,7 @@ sudo /usr/bin/setfacl -m u:"$user":"$perm" "$target"
         <li><i class="fas fa-check text-green-500 mr-2"></i>Le script vérifie que le fichier ciblé est dans <code>/home/mtz/</code></li>
         <li><i class="fas fa-check text-green-500 mr-2"></i>Applique des permissions ACL à ce fichier</li>
         <li><i class="fas fa-check text-green-500 mr-2"></i>Exécuté avec <code>sudo</code>, donc <strong>root</strong> contrôle <code>setfacl</code></li>
-        <li><i class="fas fa-exclamation-triangle text-red-500 mr-2"></i><strong>Vulnérabilité :</strong> Aucune vérification des liens symboliques \!</li>
+        <li><i class="fas fa-exclamation-triangle text-red-500 mr-2"></i><strong>Vulnérabilité :</strong> Aucune vérification des liens symboliques !</li>
     </ul>
 </div>
 
@@ -539,7 +552,7 @@ sudo /opt/acl.sh mtz rw /home/mtz/root
 <div class="bg-green-100 dark:bg-green-900/20 border-l-4 border-green-500 p-4 my-4 rounded-r-lg">
     <p class="text-green-800 dark:text-green-200">
         <i class="fas fa-check-circle mr-2 text-green-500"></i>
-        <strong>Succès :</strong> Les permissions ACL sont maintenant appliquées au fichier <code>/etc/sudoers</code> via le lien symbolique \!
+        <strong>Succès :</strong> Les permissions ACL sont maintenant appliquées au fichier <code>/etc/sudoers</code> via le lien symbolique !
     </p>
 </div>
 
@@ -575,13 +588,13 @@ whoami
 </div>
 
 <div class="bg-green-100 dark:bg-green-900/20 border-l-4 border-green-500 p-4 my-4 rounded-r-lg">
-    <p class="text-green-800 dark:text-green-200 font-bold text-xl">
+    <p class="text-green-800 dark:text-green-200">
         <i class="fas fa-crown mr-2 text-amber-500"></i>
-        ROOT SHELL OBTENU \! Privilèges maximum atteints.
+        <strong>ROOT SHELL OBTENU !</strong> Privilèges maximum atteints.
     </p>
 </div>
 
-## �� Phase 9 — Extraction des flags
+## 🏁 Phase 9 — Extraction des flags
 
 ### Récupération du root flag
 
@@ -597,7 +610,7 @@ cat /root/root.txt
             <i class="fas fa-trophy"></i>
         </div>
         <div class="flex-1">
-            <h4 class="text-2xl font-bold text-amber-600 dark:text-amber-400 mb-2">Machine Pwned\!</h4>
+            <h4 class="text-2xl font-bold text-amber-600 dark:text-amber-400 mb-2">Machine Pwned!</h4>
             <p class="text-gray-700 dark:text-gray-300">
                 <i class="fas fa-flag text-green-500 mr-2"></i><strong>User flag :</strong> /home/mtz/user.txt<br>
                 <i class="fas fa-flag text-red-500 mr-2"></i><strong>Root flag :</strong> /root/root.txt
@@ -608,10 +621,10 @@ cat /root/root.txt
 
 ## 📋 Phase 10 — Recommandations et remédiations
 
-<div class="grid md:grid-cols-2 gap-6 my-8">
-    <div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg border-l-4 border-red-500">
-        <h4 class="text-xl font-bold text-red-600 dark:text-red-400 mb-4 flex items-center">
-            <i class="fas fa-globe mr-2"></i>Application
+<div class="grid md:grid-cols-2 gap-6 my-4">
+    <div class="bg-white dark:bg-dark-navbar p-5 rounded-xl shadow-lg border-l-4 border-red-500">
+        <h4 class="text-xl font-bold text-red-600 dark:text-red-400 mb-4 flex items-start">
+            <i class="fas fa-globe mr-2 mt-1"></i><span>Application</span>
         </h4>
         <ul class="space-y-3 text-gray-700 dark:text-gray-300">
             <li class="flex items-start gap-2">
@@ -632,9 +645,9 @@ cat /root/root.txt
             </li>
         </ul>
     </div>
-    <div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg border-l-4 border-blue-500">
-        <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400 mb-4 flex items-center">
-            <i class="fas fa-server mr-2"></i>Système
+    <div class="bg-white dark:bg-dark-navbar p-5 rounded-xl shadow-lg border-l-4 border-blue-500">
+        <h4 class="text-xl font-bold text-blue-600 dark:text-blue-400 mb-4 flex items-start">
+            <i class="fas fa-server mr-2 mt-1"></i><span>Système</span>
         </h4>
         <ul class="space-y-3 text-gray-700 dark:text-gray-300">
             <li class="flex items-start gap-2">
@@ -778,34 +791,34 @@ cat /root/root.txt
 
 ## 🔗 Chaîne d'attaque résumée
 
-<div class="bg-white dark:bg-dark-navbar p-8 rounded-xl shadow-lg my-8">
-    <h3 class="text-2xl font-bold text-portfolio-violet mb-6 flex items-center">
-        <i class="fas fa-project-diagram mr-3"></i>Parcours d'attaque complet
+<div class="bg-white dark:bg-dark-navbar px-6 py-5 rounded-xl shadow-lg my-8">
+    <h3 class="text-2xl font-bold text-portfolio-violet mb-4 flex items-center">
+        <i class="fas fa-project-diagram mr-2"></i>Parcours d'attaque complet
     </h3>
     <div class="space-y-4">
-        <div class="flex items-center gap-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-l-4 border-blue-500">
-            <div class="text-3xl font-bold text-blue-500">1</div>
+        <div class="flex items-start gap-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-l-4 border-blue-500">
+            <div class="text-3xl font-bold text-blue-500 mt-1">1</div>
             <div class="flex-1">
                 <div class="font-bold text-blue-600 dark:text-blue-400">Reconnaissance et énumération</div>
                 <div class="text-sm text-gray-600 dark:text-gray-400">Nmap → permx.htb → ffuf → lms.permx.htb</div>
             </div>
         </div>
-        <div class="flex items-center gap-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border-l-4 border-green-500">
-            <div class="text-3xl font-bold text-green-500">2</div>
+        <div class="flex items-start gap-4 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border-l-4 border-green-500">
+            <div class="text-3xl font-bold text-green-500 mt-1">2</div>
             <div class="flex-1">
                 <div class="font-bold text-green-600 dark:text-green-400">Exploitation et accès initial</div>
                 <div class="text-sm text-gray-600 dark:text-gray-400">CVE-2023-4220 → File Upload RCE → www-data shell</div>
             </div>
         </div>
-        <div class="flex items-center gap-4 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border-l-4 border-purple-500">
-            <div class="text-3xl font-bold text-purple-500">3</div>
+        <div class="flex items-start gap-4 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border-l-4 border-purple-500">
+            <div class="text-3xl font-bold text-purple-500 mt-1">3</div>
             <div class="flex-1">
                 <div class="font-bold text-purple-600 dark:text-purple-400">Énumération et pivoting</div>
                 <div class="text-sm text-gray-600 dark:text-gray-400">configuration.php → plaintext creds → SSH mtz</div>
             </div>
         </div>
-        <div class="flex items-center gap-4 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border-l-4 border-red-500">
-            <div class="text-3xl font-bold text-red-500">4</div>
+        <div class="flex items-start gap-4 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border-l-4 border-red-500">
+            <div class="text-3xl font-bold text-red-500 mt-1">4</div>
             <div class="flex-1">
                 <div class="font-bold text-red-600 dark:text-red-400">Escalade de privilèges</div>
                 <div class="text-sm text-gray-600 dark:text-gray-400">Sudo acl.sh → Symbolic link → /etc/sudoers → Root shell</div>
