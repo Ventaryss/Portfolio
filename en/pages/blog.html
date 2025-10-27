@@ -144,6 +144,12 @@ lang: en
                                 <div class="text-white text-xl font-bold">WordPress</div>
                                 <div class="text-white/80 text-xs mt-2">SQLi + XXE</div>
                             </div>
+                        {% elsif post.title contains 'Dog' %}
+                            <div class="text-center bg-gradient-to-br from-green-500 to-cyan-500 absolute inset-0 flex flex-col items-center justify-center">
+                                <i class="fas fa-code text-white text-5xl mb-3"></i>
+                                <div class="text-white text-xl font-bold">Backdrop CMS</div>
+                                <div class="text-white/80 text-xs mt-2">Git + RCE</div>
+                            </div>
                         {% elsif post_category == 'writeup' %}
                             <i class="fas fa-flag-checkered text-white text-7xl"></i>
                         {% elsif post_category == 'certification' %}
