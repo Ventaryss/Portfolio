@@ -214,7 +214,7 @@ permalink: /fr/projects/citadel/
                 <a href="https://github.com/Ventaryss" target="_blank" class="bg-white text-cyan-500 hover:bg-gray-100 font-bold py-3 px-8 rounded-lg shadow-lg transition duration-300">
                     <i class="fab fa-github mr-2"></i>Suivre sur GitHub
                 </a>
-                <a href="{{ site.baseurl }}/projects/" class="bg-cyan-700 hover:bg-cyan-800 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition duration-300">
+                <a href="{{ site.baseurl }}/fr/projects/" class="bg-cyan-700 hover:bg-cyan-800 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition duration-300">
                     <i class="fas fa-arrow-left mr-2"></i>Retour aux projets
                 </a>
             </div>

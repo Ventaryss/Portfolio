@@ -32,7 +32,7 @@ linkedin_username: aubin-saby-369922230
 # Build settings
 markdown: kramdown
 
-# Collections (pour les projets et articles)
+# Collections (pour les projets, articles et pages)
 collections:
   projects:
     output: true
@@ -40,6 +40,9 @@ collections:
   posts:
     output: true
     permalink: /blog/:year/:month/:day/:title/
+  pages:
+    output: true
+    permalink: /:path/
 
 # Multi-language support
 languages: ["fr", "en"]

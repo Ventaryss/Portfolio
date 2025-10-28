@@ -234,7 +234,7 @@ permalink: /fr/projects/ddf/
 <!-- Navigation -->
 <section class="py-12">
     <div class="max-w-5xl mx-auto px-4 text-center">
-        <a href="{{ site.baseurl }}/projects/" class="inline-block bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition duration-300">
+        <a href="{{ site.baseurl }}/fr/projects/" class="inline-block bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition duration-300">
             <i class="fas fa-arrow-left mr-2"></i>Retour aux projets
         </a>
     </div>

@@ -25,7 +25,7 @@ lang: fr
                 <i class="fas fa-th-large mr-2"></i>Tous les articles
             </button>
             <button onclick="filterPosts('writeup', event)" class="filter-btn px-5 py-2 rounded-lg font-semibold transition-all duration-300 bg-white dark:bg-dark-main text-gray-700 dark:text-gray-300 hover:bg-green-500 hover:text-white shadow-lg">
-                <i class="fas fa-flag-checkered mr-2"></i>WriteUps CTF
+                <i class="fas fa-flag-checkered mr-2"></i>WriteUps
             </button>
             <button onclick="filterPosts('article', event)" class="filter-btn px-5 py-2 rounded-lg font-semibold transition-all duration-300 bg-white dark:bg-dark-main text-gray-700 dark:text-gray-300 hover:bg-purple-500 hover:text-white shadow-lg">
                 <i class="fas fa-shield-alt mr-2"></i>Articles Cyber
@@ -41,16 +41,16 @@ lang: fr
                 Toutes difficultés
             </button>
             <button onclick="filterByDifficulty('Easy', event)" class="difficulty-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 hover:bg-green-500 hover:text-white">
-                <i class="fas fa-circle text-xs mr-1"></i>Easy
+                Easy
             </button>
             <button onclick="filterByDifficulty('Medium', event)" class="difficulty-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 hover:bg-amber-500 hover:text-white">
-                <i class="fas fa-circle text-xs mr-1"></i>Medium
+                Medium
             </button>
             <button onclick="filterByDifficulty('Hard', event)" class="difficulty-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 hover:bg-red-500 hover:text-white">
-                <i class="fas fa-circle text-xs mr-1"></i>Hard
+                Hard
             </button>
             <button onclick="filterByDifficulty('Insane', event)" class="difficulty-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 hover:bg-purple-500 hover:text-white">
-                <i class="fas fa-circle text-xs mr-1"></i>Insane
+                Insane
             </button>
         </div>
     </div>
@@ -72,7 +72,7 @@ lang: fr
                     <div>
                         {% assign writeup_count = site.posts | where: "lang", "fr" | where_exp: "post", "post.categories contains 'WriteUp'" | size %}
                         <div class="text-3xl font-bold text-green-600 dark:text-green-400">{{ writeup_count }}</div>
-                        <div class="text-sm text-gray-600 dark:text-gray-400">WriteUp{% if writeup_count > 1 %}s{% endif %} CTF</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">WriteUp{% if writeup_count > 1 %}s{% endif %}</div>
                     </div>
                 </div>
             </div>
@@ -102,6 +102,137 @@ lang: fr
             </div>
         </div>
         
+        <!-- WriteUps ProLabs Section -->
+        <div id="writeups-prolabs-section" class="mb-16" style="display: none;">
+            <h2 class="text-3xl font-bold mb-8">
+                <i class="fas fa-network-wired text-green-500 mr-3"></i>WriteUps ProLabs
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="prolabs-container">
+                {% assign writeup_posts = french_posts | where_exp: "post", "post.categories contains 'WriteUp'" %}
+                {% assign prolabs_posts = writeup_posts | where: "platform", "ProLabs" %}
+                {% if prolabs_posts.size == 0 %}
+                <div class="col-span-full text-center py-12 bg-white dark:bg-dark-navbar rounded-xl shadow-lg">
+                    <i class="fas fa-hourglass-half text-green-500 text-5xl mb-4"></i>
+                    <p class="text-lg text-gray-600 dark:text-gray-400">
+                        Writeups ProLabs à venir bientôt...
+                    </p>
+                </div>
+                {% else %}
+                {% for post in prolabs_posts %}
+                <a href="{{ site.baseurl }}{{ post.url }}" class="block post-item" data-category="writeup" data-difficulty="{{ post.difficulty | default: 'Unknown' }}" data-writeup-type="prolabs">
+                    <article class="bg-white dark:bg-dark-navbar rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden hover:scale-105 h-full flex flex-col">
+                        <div class="h-32 md:h-36 flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-green-500 to-emerald-600">
+                            <i class="fas fa-network-wired text-white text-7xl"></i>
+                        </div>
+                        <div class="p-5 flex-1 flex flex-col leading-snug">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-sm text-gray-500 dark:text-gray-400">{{ post.date | date: "%Y-%m-%d" }}</span>
+                                {% if post.difficulty %}
+                                <span class="px-2 py-0.5 text-xs rounded leading-none
+                                    {% if post.difficulty == 'Easy' %}bg-green-500 text-white
+                                    {% elsif post.difficulty == 'Medium' %}bg-amber-500 text-white
+                                    {% elsif post.difficulty == 'Hard' %}bg-red-500 text-white
+                                    {% elsif post.difficulty == 'Insane' %}bg-purple-500 text-white
+                                    {% endif %}">
+                                    {{ post.difficulty }}
+                                </span>
+                                {% endif %}
+                            </div>
+                            <h3 class="text-lg font-bold mt-1 mb-1.5 text-green-600 dark:text-green-400">
+                                {{ post.title }}
+                            </h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                                <i class="fas fa-network-wired mr-1"></i>WriteUp ProLabs
+                            </p>
+                        </div>
+                    </article>
+                </a>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- WriteUps Labs Section -->
+        <div id="writeups-labs-section" class="mb-16" style="display: none;">
+            <h2 class="text-3xl font-bold mb-8">
+                <i class="fas fa-cube text-green-500 mr-3"></i>WriteUps Labs
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="labs-container">
+                {% assign all_writeups = french_posts | where_exp: "post", "post.categories contains 'WriteUp'" %}
+                {% for post in all_writeups %}
+                {% if post.platform != 'ProLabs' %}
+                <a href="{{ site.baseurl }}{{ post.url }}" class="block post-item" data-category="writeup" data-difficulty="{{ post.difficulty | default: 'Unknown' }}" data-writeup-type="labs">
+                    <article class="bg-white dark:bg-dark-navbar rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden hover:scale-105 h-full flex flex-col">
+                        <div class="h-32 md:h-36 flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-green-500 to-emerald-600">
+                            {% if post.title contains 'PermX' %}
+                                <div class="text-center bg-gradient-to-br from-green-500 to-cyan-500 absolute inset-0 flex flex-col items-center justify-center">
+                                    <i class="fas fa-graduation-cap text-white text-5xl mb-3"></i>
+                                    <div class="text-white text-xl font-bold">Chamilo LMS</div>
+                                    <div class="text-white/80 text-xs mt-2">CVE-2023-4220</div>
+                                </div>
+                            {% elsif post.title contains 'BoardLight' %}
+                                <div class="text-center bg-gradient-to-br from-green-500 to-cyan-500 absolute inset-0 flex flex-col items-center justify-center">
+                                    <i class="fas fa-chart-line text-white text-5xl mb-3"></i>
+                                    <div class="text-white text-xl font-bold">Dolibarr ERP</div>
+                                    <div class="text-white/80 text-xs mt-2">CVE-2023-30253</div>
+                                </div>
+                            {% elsif post.title contains 'Writeup' %}
+                                <div class="text-center bg-gradient-to-br from-green-500 to-cyan-500 absolute inset-0 flex flex-col items-center justify-center">
+                                    <i class="fas fa-newspaper text-white text-5xl mb-3"></i>
+                                    <div class="text-white text-xl font-bold">CMS Made Simple</div>
+                                    <div class="text-white/80 text-xs mt-2">CVE-2019-9053</div>
+                                </div>
+                            {% elsif post.title contains 'Support' %}
+                                <div class="text-center bg-gradient-to-br from-green-500 to-cyan-500 absolute inset-0 flex flex-col items-center justify-center">
+                                    <i class="fab fa-windows text-white text-5xl mb-3"></i>
+                                    <div class="text-white text-xl font-bold">Active Directory</div>
+                                    <div class="text-white/80 text-xs mt-2">RBCD Attack</div>
+                                </div>
+                            {% elsif post.title contains 'MetaTwo' %}
+                                <div class="text-center bg-gradient-to-br from-green-500 to-cyan-500 absolute inset-0 flex flex-col items-center justify-center">
+                                    <i class="fab fa-wordpress text-white text-5xl mb-3"></i>
+                                    <div class="text-white text-xl font-bold">WordPress</div>
+                                    <div class="text-white/80 text-xs mt-2">SQLi + XXE</div>
+                                </div>
+                            {% elsif post.title contains 'Dog' %}
+                                <div class="text-center bg-gradient-to-br from-green-500 to-cyan-500 absolute inset-0 flex flex-col items-center justify-center">
+                                    <i class="fas fa-code text-white text-5xl mb-3"></i>
+                                    <div class="text-white text-xl font-bold">Backdrop CMS</div>
+                                    <div class="text-white/80 text-xs mt-2">Git + RCE</div>
+                                </div>
+                            {% else %}
+                                <i class="fas fa-cube text-white text-7xl"></i>
+                            {% endif %}
+                        </div>
+                        <div class="p-5 flex-1 flex flex-col leading-snug">
+                            <div class="flex items-center gap-2 mb-1">
+                                <span class="text-sm text-gray-500 dark:text-gray-400">{{ post.date | date: "%Y-%m-%d" }}</span>
+                                {% if post.difficulty %}
+                                <span class="px-2 py-0.5 text-xs rounded leading-none
+                                    {% if post.difficulty == 'Easy' %}bg-green-500 text-white
+                                    {% elsif post.difficulty == 'Medium' %}bg-amber-500 text-white
+                                    {% elsif post.difficulty == 'Hard' %}bg-red-500 text-white
+                                    {% elsif post.difficulty == 'Insane' %}bg-purple-500 text-white
+                                    {% endif %}">
+                                    {{ post.difficulty }}
+                                </span>
+                                {% endif %}
+                            </div>
+                            <h3 class="text-lg font-bold mt-1 mb-1.5 text-green-600 dark:text-green-400">
+                                {{ post.title }}
+                            </h3>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                                <i class="fas fa-cube mr-1"></i>WriteUp Labs
+                            </p>
+                        </div>
+                    </article>
+                </a>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        
+        <!-- All Posts Grid (Articles, Certifications, All mixed) -->
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="posts-container">
             {% for post in french_posts %}
             {% assign post_category = "article" %}
@@ -176,7 +307,7 @@ lang: fr
                         </h3>
                         <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">
                             {% if post_category == 'writeup' %}
-                                <i class="fas fa-flag-checkered mr-1"></i>WriteUp CTF
+                                <i class="fas fa-flag-checkered mr-1"></i>WriteUp
                             {% elsif post_category == 'certification' %}
                                 <i class="fas fa-award mr-1"></i>Retour d'expérience certification
                             {% else %}
@@ -218,6 +349,9 @@ function filterPosts(category, event) {
     const posts = document.querySelectorAll('.post-item');
     const buttons = document.querySelectorAll('.filter-btn');
     const difficultyFilters = document.getElementById('difficulty-filters');
+    const writeupsProlabsSection = document.getElementById('writeups-prolabs-section');
+    const writeupsLabsSection = document.getElementById('writeups-labs-section');
+    const postsContainer = document.getElementById('posts-container');
     
     // Mettre à jour les boutons
     buttons.forEach(btn => {
@@ -231,16 +365,28 @@ function filterPosts(category, event) {
     if (category === 'all') {
         event.target.classList.add('bg-portfolio-violet', 'text-white');
         difficultyFilters.style.display = 'none';
+        writeupsProlabsSection.style.display = 'none';
+        writeupsLabsSection.style.display = 'none';
+        postsContainer.style.display = 'grid';
     } else if (category === 'writeup') {
         event.target.classList.add('bg-green-500', 'text-white');
         difficultyFilters.style.display = 'flex';
         resetDifficultyButtons();
+        writeupsProlabsSection.style.display = 'block';
+        writeupsLabsSection.style.display = 'block';
+        postsContainer.style.display = 'none';
     } else if (category === 'article') {
         event.target.classList.add('bg-purple-500', 'text-white');
         difficultyFilters.style.display = 'none';
+        writeupsProlabsSection.style.display = 'none';
+        writeupsLabsSection.style.display = 'none';
+        postsContainer.style.display = 'grid';
     } else if (category === 'certification') {
         event.target.classList.add('bg-amber-500', 'text-white');
         difficultyFilters.style.display = 'none';
+        writeupsProlabsSection.style.display = 'none';
+        writeupsLabsSection.style.display = 'none';
+        postsContainer.style.display = 'grid';
     }
     
     applyFilters();
@@ -251,12 +397,32 @@ function filterByDifficulty(difficulty, event) {
     
     const buttons = document.querySelectorAll('.difficulty-btn');
     buttons.forEach(btn => {
-        btn.classList.remove('active', 'bg-gray-300', 'dark:bg-gray-600', 'bg-green-500', 'bg-amber-500', 'bg-red-500', 'bg-purple-500', 'text-white');
+        btn.classList.remove('active', 'bg-gray-300', 'dark:bg-gray-600', 'bg-green-500', 'bg-amber-500', 'bg-red-500', 'bg-purple-500', 'text-white', 'text-gray-800', 'dark:text-gray-200', 'text-green-700', 'dark:text-green-300', 'text-amber-700', 'dark:text-amber-300', 'text-red-700', 'dark:text-red-300', 'text-purple-700', 'dark:text-purple-300');
+        btn.classList.add('bg-green-100', 'dark:bg-green-900/30', 'text-green-700', 'dark:text-green-300');
+        
+        // Restaurer les couleurs par défaut selon le bouton
+        if (btn.textContent.includes('Toutes')) {
+            btn.classList.remove('bg-green-100', 'dark:bg-green-900/30', 'text-green-700', 'dark:text-green-300');
+            btn.classList.add('bg-gray-300', 'dark:bg-gray-600', 'text-gray-800', 'dark:text-gray-200');
+        } else if (btn.textContent.includes('Easy')) {
+            btn.classList.remove('bg-amber-100', 'dark:bg-amber-900/30', 'text-amber-700', 'dark:text-amber-300');
+            btn.classList.add('bg-green-100', 'dark:bg-green-900/30', 'text-green-700', 'dark:text-green-300');
+        } else if (btn.textContent.includes('Medium')) {
+            btn.classList.remove('bg-green-100', 'dark:bg-green-900/30', 'text-green-700', 'dark:text-green-300');
+            btn.classList.add('bg-amber-100', 'dark:bg-amber-900/30', 'text-amber-700', 'dark:text-amber-300');
+        } else if (btn.textContent.includes('Hard')) {
+            btn.classList.remove('bg-green-100', 'dark:bg-green-900/30', 'text-green-700', 'dark:text-green-300');
+            btn.classList.add('bg-red-100', 'dark:bg-red-900/30', 'text-red-700', 'dark:text-red-300');
+        } else if (btn.textContent.includes('Insane')) {
+            btn.classList.remove('bg-green-100', 'dark:bg-green-900/30', 'text-green-700', 'dark:text-green-300');
+            btn.classList.add('bg-purple-100', 'dark:bg-purple-900/30', 'text-purple-700', 'dark:text-purple-300');
+        }
     });
     
+    event.target.classList.remove('bg-green-100', 'dark:bg-green-900/30', 'bg-amber-100', 'dark:bg-amber-900/30', 'bg-red-100', 'dark:bg-red-900/30', 'bg-purple-100', 'dark:bg-purple-900/30', 'bg-gray-300', 'dark:bg-gray-600', 'text-green-700', 'dark:text-green-300', 'text-amber-700', 'dark:text-amber-300', 'text-red-700', 'dark:text-red-300', 'text-purple-700', 'dark:text-purple-300', 'text-gray-800', 'dark:text-gray-200');
     event.target.classList.add('active');
     if (difficulty === 'all') {
-        event.target.classList.add('bg-gray-300', 'dark:bg-gray-600');
+        event.target.classList.add('bg-gray-300', 'dark:bg-gray-600', 'text-gray-800', 'dark:text-gray-200');
     } else if (difficulty === 'Easy') {
         event.target.classList.add('bg-green-500', 'text-white');
     } else if (difficulty === 'Medium') {

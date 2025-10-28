@@ -278,7 +278,7 @@ permalink: /fr/projects/avalon/
 <!-- Navigation -->
 <section class="py-12">
     <div class="max-w-5xl mx-auto px-4 text-center">
-        <a href="{{ site.baseurl }}/projects/" class="inline-block bg-portfolio-violet hover:bg-portfolio-violet-light text-white font-bold py-3 px-8 rounded-lg shadow-lg transition duration-300">
+        <a href="{{ site.baseurl }}/fr/projects/" class="inline-block bg-portfolio-violet hover:bg-portfolio-violet-light text-white font-bold py-3 px-8 rounded-lg shadow-lg transition duration-300">
             <i class="fas fa-arrow-left mr-2"></i>Retour aux projets
         </a>
     </div>

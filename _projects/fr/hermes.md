@@ -207,7 +207,7 @@ permalink: /fr/projects/hermes/
 
         <div class="grid md:grid-cols-3 gap-8">
             <div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg">
-                <div class="text-4xl text-cyan-500 mb-4">
+                <div class="text-4xl text-cyan-500 mb-4 text-center">
                     <i class="fas fa-building"></i>
                 </div>
                 <h4 class="font-bold text-xl mb-3">Infrastructure d'Entreprise</h4>
@@ -217,7 +217,7 @@ permalink: /fr/projects/hermes/
             </div>
 
             <div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg">
-                <div class="text-4xl text-blue-500 mb-4">
+                <div class="text-4xl text-blue-500 mb-4 text-center">
                     <i class="fas fa-cloud"></i>
                 </div>
                 <h4 class="font-bold text-xl mb-3">Cloud & Hybride</h4>
@@ -227,7 +227,7 @@ permalink: /fr/projects/hermes/
             </div>
 
             <div class="bg-white dark:bg-dark-navbar p-6 rounded-xl shadow-lg">
-                <div class="text-4xl text-indigo-500 mb-4">
+                <div class="text-4xl text-indigo-500 mb-4 text-center">
                     <i class="fas fa-microchip"></i>
                 </div>
                 <h4 class="font-bold text-xl mb-3">IoT & Edge Computing</h4>
@@ -330,7 +330,7 @@ permalink: /fr/projects/hermes/
 <!-- Navigation -->
 <section class="py-12">
     <div class="max-w-5xl mx-auto px-4 text-center">
-        <a href="{{ site.baseurl }}/projects/" class="inline-block bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition duration-300">
+        <a href="{{ site.baseurl }}/fr/projects/" class="inline-block bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition duration-300">
             <i class="fas fa-arrow-left mr-2"></i>Retour aux projets
         </a>
     </div>
