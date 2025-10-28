@@ -21,35 +21,35 @@ lang: fr
 <section class="py-8 bg-gray-100 dark:bg-dark-navbar">
     <div class="max-w-7xl mx-auto px-4">
         <div class="flex flex-wrap justify-center items-center gap-3 mb-4">
-            <button onclick="filterPosts('all')" class="filter-btn active px-5 py-2 rounded-lg font-semibold transition-all duration-300 bg-portfolio-violet text-white shadow-lg">
+            <button onclick="filterPosts('all', event)" class="filter-btn active px-5 py-2 rounded-lg font-semibold transition-all duration-300 bg-portfolio-violet text-white shadow-lg">
                 <i class="fas fa-th-large mr-2"></i>Tous les articles
             </button>
-            <button onclick="filterPosts('writeup')" class="filter-btn px-5 py-2 rounded-lg font-semibold transition-all duration-300 bg-white dark:bg-dark-main text-gray-700 dark:text-gray-300 hover:bg-green-500 hover:text-white shadow-lg">
+            <button onclick="filterPosts('writeup', event)" class="filter-btn px-5 py-2 rounded-lg font-semibold transition-all duration-300 bg-white dark:bg-dark-main text-gray-700 dark:text-gray-300 hover:bg-green-500 hover:text-white shadow-lg">
                 <i class="fas fa-flag-checkered mr-2"></i>WriteUps CTF
             </button>
-            <button onclick="filterPosts('article')" class="filter-btn px-5 py-2 rounded-lg font-semibold transition-all duration-300 bg-white dark:bg-dark-main text-gray-700 dark:text-gray-300 hover:bg-purple-500 hover:text-white shadow-lg">
+            <button onclick="filterPosts('article', event)" class="filter-btn px-5 py-2 rounded-lg font-semibold transition-all duration-300 bg-white dark:bg-dark-main text-gray-700 dark:text-gray-300 hover:bg-purple-500 hover:text-white shadow-lg">
                 <i class="fas fa-shield-alt mr-2"></i>Articles Cyber
             </button>
-            <button onclick="filterPosts('certification')" class="filter-btn px-5 py-2 rounded-lg font-semibold transition-all duration-300 bg-white dark:bg-dark-main text-gray-700 dark:text-gray-300 hover:bg-amber-500 hover:text-white shadow-lg">
+            <button onclick="filterPosts('certification', event)" class="filter-btn px-5 py-2 rounded-lg font-semibold transition-all duration-300 bg-white dark:bg-dark-main text-gray-700 dark:text-gray-300 hover:bg-amber-500 hover:text-white shadow-lg">
                 <i class="fas fa-award mr-2"></i>Certifications
             </button>
         </div>
         
         <!-- Sous-filtres de difficulté pour WriteUps -->
         <div id="difficulty-filters" class="flex flex-wrap justify-center gap-3" style="display: none;">
-            <button onclick="filterByDifficulty('all')" class="difficulty-btn active px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-gray-200">
+            <button onclick="filterByDifficulty('all', event)" class="difficulty-btn active px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-gray-200">
                 Toutes difficultés
             </button>
-            <button onclick="filterByDifficulty('Easy')" class="difficulty-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 hover:bg-green-500 hover:text-white">
+            <button onclick="filterByDifficulty('Easy', event)" class="difficulty-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 hover:bg-green-500 hover:text-white">
                 <i class="fas fa-circle text-xs mr-1"></i>Easy
             </button>
-            <button onclick="filterByDifficulty('Medium')" class="difficulty-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 hover:bg-amber-500 hover:text-white">
+            <button onclick="filterByDifficulty('Medium', event)" class="difficulty-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 hover:bg-amber-500 hover:text-white">
                 <i class="fas fa-circle text-xs mr-1"></i>Medium
             </button>
-            <button onclick="filterByDifficulty('Hard')" class="difficulty-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 hover:bg-red-500 hover:text-white">
+            <button onclick="filterByDifficulty('Hard', event)" class="difficulty-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 hover:bg-red-500 hover:text-white">
                 <i class="fas fa-circle text-xs mr-1"></i>Hard
             </button>
-            <button onclick="filterByDifficulty('Insane')" class="difficulty-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 hover:bg-purple-500 hover:text-white">
+            <button onclick="filterByDifficulty('Insane', event)" class="difficulty-btn px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 hover:bg-purple-500 hover:text-white">
                 <i class="fas fa-circle text-xs mr-1"></i>Insane
             </button>
         </div>
@@ -111,7 +111,7 @@ lang: fr
                 {% assign post_category = "certification" %}
             {% endif %}
             
-            <a href="{{ site.baseurl }}{{ post.url }}" class="block post-item" data-category="{{ post_category }}">
+            <a href="{{ site.baseurl }}{{ post.url }}" class="block post-item" data-category="{{ post_category }}" data-difficulty="{{ post.difficulty | default: 'Unknown' }}">
                 <article class="bg-white dark:bg-dark-navbar rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden hover:scale-105 h-full flex flex-col">
                     <div class="h-32 md:h-36 flex items-center justify-center relative overflow-hidden {% if post_category == 'writeup' %}bg-gradient-to-br from-green-500 to-emerald-600{% elsif post_category == 'certification' %}bg-gradient-to-br from-amber-500 to-orange-600{% else %}bg-gradient-to-br from-portfolio-violet to-purple-600{% endif %} flex items-center justify-center relative overflow-hidden">
                         {% if post.title contains 'PermX' %}
@@ -211,7 +211,7 @@ lang: fr
 let currentCategory = 'all';
 let currentDifficulty = 'all';
 
-function filterPosts(category) {
+function filterPosts(category, event) {
     currentCategory = category;
     currentDifficulty = 'all';
     
@@ -246,7 +246,7 @@ function filterPosts(category) {
     applyFilters();
 }
 
-function filterByDifficulty(difficulty) {
+function filterByDifficulty(difficulty, event) {
     currentDifficulty = difficulty;
     
     const buttons = document.querySelectorAll('.difficulty-btn');
@@ -280,19 +280,15 @@ function resetDifficultyButtons() {
 
 function applyFilters() {
     const posts = document.querySelectorAll('.post-item');
-    
+
     posts.forEach(post => {
         const postCategory = post.dataset.category;
-        const postDifficulty = post.querySelector('.px-2.py-1.text-xs.rounded')?.textContent.trim();
-        
-        let categoryMatch = currentCategory === 'all' || postCategory === currentCategory;
-        let difficultyMatch = currentDifficulty === 'all' || postDifficulty === currentDifficulty;
-        
-        if (categoryMatch && difficultyMatch) {
-            post.style.display = 'block';
-        } else {
-            post.style.display = 'none';
-        }
+        const postDifficulty = post.dataset.difficulty;
+
+        const categoryMatch = currentCategory === 'all' || postCategory === currentCategory;
+        const difficultyMatch = currentDifficulty === 'all' || postDifficulty === currentDifficulty;
+
+        post.style.display = (categoryMatch && difficultyMatch) ? 'block' : 'none';
     });
 }
 </script>
